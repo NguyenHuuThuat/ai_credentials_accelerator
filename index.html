@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="GenAI Resource Kit — Prompt Engineering, AI Mindset & Workflow cho Business Team. Microsoft AI Credentials Accelerator Series x Datapot.">
+<meta name="theme-color" content="#4f46e5">
+<title>AI Guide — Microsoft x Datapot | AI Credentials Accelerator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f6f2;--bg2:#ffffff;--bg3:#f0ede6;--bg4:#e8e4da;
+  --border:#e2ddd4;--border2:#c8c2b6;
+  --text:#1a1814;--text2:#5a554a;--text3:#9b9488;
+  --accent:#4f46e5;--accent-l:#ede9fe;
+  --green:#16a34a;--green-l:#dcfce7;--green-d:#15803d;
+  --amber:#b45309;--amber-l:#fef3c7;
+  --red:#dc2626;--red-l:#fee2e2;
+  --teal:#0f766e;--teal-l:#ccfbf1;
+  --blue:#1d4ed8;--blue-l:#dbeafe;
+  --orange:#c2410c;--orange-l:#ffedd5;
+  --font:'Be Vietnam Pro',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.65;min-height:100vh}
+.section{animation:fadeInSection .35s ease}
+@keyframes fadeInSection{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── TOP HEADER ── */
+.site-header{background:var(--bg2);border-bottom:2px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:300}
+.site-logo{display:flex;align-items:center;gap:11px;flex-shrink:0}
+.header-brands{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.brand-sep{font-size:11px;color:var(--text3);font-weight:400}
+.site-name{font-size:14px;font-weight:800;letter-spacing:-.4px}
+.site-sub{font-size:10px;color:var(--text3);font-weight:400;display:block}
+.track-pills{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.tp{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid var(--border);background:var(--bg3);color:var(--text2);transition:all .18s;white-space:nowrap}
+.tp.active,.tp:hover{border-color:var(--accent);background:var(--accent-l);color:var(--accent)}
+.tp.active{pointer-events:none}
+
+/* ── TRACK NAV ── */
+.track-view{display:none}
+.track-view.active{display:block}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.topbar::-webkit-scrollbar{display:none}
+.nav-btn{padding:12px 14px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;border:none;background:none;font-family:var(--font);border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.nav-btn:hover{color:var(--text)}
+.nav-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.nb{display:inline-block;background:var(--accent-l);color:var(--accent);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:4px;vertical-align:middle}
+.nb-green{background:var(--green-l);color:var(--green-d)}
+
+/* ── SECTIONS ── */
+.section{display:none;padding:24px 18px 80px;max-width:840px;margin:0 auto}
+.section.active{display:block}
+
+/* ── TYPOGRAPHY ── */
+.page-title{font-size:22px;font-weight:800;margin-bottom:5px;letter-spacing:-.4px}
+.page-sub{color:var(--text2);font-size:13px;margin-bottom:24px;line-height:1.6}
+.sec-label{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px;margin:24px 0 12px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── HERO ── */
+.hero{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px 22px;margin-bottom:24px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60%;right:-30%;width:300px;height:300px;background:radial-gradient(circle,rgba(79,70,229,.06) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:var(--accent-l);border:1px solid #c4b5fd;color:#5b21b6;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.8px;text-transform:uppercase}
+.hero-badge.green{background:var(--green-l);border-color:#86efac;color:#15803d}
+.hero h1{font-size:26px;font-weight:800;line-height:1.25;margin-bottom:8px;letter-spacing:-.5px}
+@media(max-width:480px){.hero h1{font-size:21px}}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{color:var(--text2);font-size:13px;max-width:480px;margin:0 auto 18px}
+.hero-targets{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+.htag{background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:11px;padding:4px 11px;border-radius:20px;font-weight:500}
+
+/* ── HOME CARDS ── */
+.home-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+@media(max-width:520px){.home-grid{grid-template-columns:1fr}}
+.home-card{background:var(--bg2);border:2px solid var(--border);border-radius:14px;padding:20px 18px;cursor:pointer;transition:all .18s;text-align:left}
+.home-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(79,70,229,.1)}
+.home-card.green-card:hover{border-color:var(--green)}
+.hc-icon{font-size:28px;margin-bottom:10px}
+.hc-track{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;color:var(--accent)}
+.hc-track.green{color:var(--green-d)}
+.hc-title{font-size:16px;font-weight:700;margin-bottom:5px}
+.hc-desc{font-size:12px;color:var(--text2);line-height:1.6}
+.hc-topics{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.hc-tag{background:var(--accent-l);color:#5b21b6;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px}
+.hc-tag.green{background:var(--green-l);color:var(--green-d)}
+.hc-cta{display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:12px;font-weight:700;color:var(--accent)}
+.green-card .hc-cta{color:var(--green-d)}
+
+/* ── CARDS ── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:10px;transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.card h3{font-size:14px;font-weight:600;margin-bottom:4px}
+.card p,.card-text{color:var(--text2);font-size:13px;line-height:1.75}
+
+/* ── COMPARE ── */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+@media(max-width:520px){.cmp{grid-template-columns:1fr}}
+.cmp-box{border-radius:10px;padding:13px 14px}
+.cmp-bad{background:#fff5f5;border:1px solid #fecaca}
+.cmp-good{background:#f0fdf4;border:1px solid #bbf7d0}
+.cmp-label{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:7px}
+.cmp-bad .cmp-label{color:var(--red)}
+.cmp-good .cmp-label{color:var(--green)}
+.cmp-text{font-size:12px;line-height:1.7;color:var(--text);font-family:var(--mono);white-space:pre-wrap}
+
+/* ── CODE ── */
+.code{background:#f8f7f3;border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin:10px 0;font-family:var(--mono);font-size:11.5px;line-height:1.85;overflow-x:auto;color:var(--text);white-space:pre-wrap;position:relative}
+.code-wrap{position:relative}
+.copy-code-btn{position:absolute;top:8px;right:8px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;color:var(--text2);font-family:var(--font);transition:all .15s}
+.copy-code-btn:hover{background:var(--accent-l);border-color:var(--accent);color:var(--accent)}
+.kw{color:#7c3aed;font-weight:600}
+.sv{color:#15803d}
+.cm{color:var(--text3);font-style:italic}
+.tg{color:#0f766e;font-weight:500}
+.vr{color:#b45309}
+
+/* ── TIPS ── */
+.tip{border-left:3px solid var(--accent);padding:10px 13px;margin:10px 0;font-size:13px;color:var(--text2);line-height:1.7;background:var(--accent-l);border-radius:0 8px 8px 0}
+.tip strong{color:var(--accent)}
+.tip-green{border-left-color:var(--green);background:var(--green-l)}
+.tip-green strong{color:var(--green-d)}
+.tip-amber{border-left-color:var(--amber);background:var(--amber-l)}
+.tip-amber strong{color:var(--amber)}
+.tip-blue{border-left-color:var(--blue);background:var(--blue-l)}
+.tip-blue strong{color:var(--blue)}
+
+/* ── TAGS ── */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tag{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid}
+.tag-purple{background:var(--accent-l);border-color:#c4b5fd;color:#5b21b6}
+.tag-green{background:var(--green-l);border-color:#86efac;color:#15803d}
+.tag-red{background:var(--red-l);border-color:#fca5a5;color:#991b1b}
+
+/* ── BUTTONS ── */
+.btn{padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:var(--font);transition:all .18s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#4338ca}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:var(--green-d)}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.copy-btn{display:inline-flex;align-items:center;gap:5px;background:var(--accent);color:#fff;border:none;border-radius:7px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;margin-top:10px;font-family:var(--font)}
+.copy-btn:hover{background:#4338ca}
+
+/* ── ACCORDION ── */
+.acc{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:7px}
+.acc-hdr{padding:12px 15px;background:var(--bg2);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;color:var(--text);user-select:none}
+.acc-hdr:hover{background:var(--bg3)}
+.acc-arrow{font-size:11px;color:var(--text3);transition:transform .2s;flex-shrink:0;margin-left:8px}
+.acc.open .acc-arrow{transform:rotate(180deg)}
+.acc-body{display:none;padding:13px 15px;background:var(--bg2);border-top:1px solid var(--border);font-size:13px;color:var(--text2);line-height:1.75}
+.acc.open .acc-body{display:block}
+
+/* ── SUBTABS ── */
+.subtabs{display:flex;gap:4px;background:var(--bg3);padding:4px;border-radius:10px;margin-bottom:16px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.subtabs::-webkit-scrollbar{display:none}
+.stab{padding:7px 12px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--text2);font-family:var(--font);transition:all .15s;white-space:nowrap;flex-shrink:0}
+.stab.active{background:var(--bg2);color:var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stab-content{display:none}
+.stab-content.active{display:block}
+
+/* ── TECH GRID ── */
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:16px}
+@media(max-width:500px){.tech-grid{grid-template-columns:repeat(2,1fr)}}
+.tech-btn{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:11px 12px;cursor:pointer;text-align:left;transition:all .15s;font-family:var(--font)}
+.tech-btn:hover,.tech-btn.active{border-color:var(--accent);background:var(--accent-l)}
+.tech-btn .ti{font-size:17px;margin-bottom:4px;display:block}
+.tech-btn .tn{font-size:12px;font-weight:700;color:var(--text);display:block;margin-bottom:1px}
+.tech-btn.active .tn{color:var(--accent)}
+.tech-btn .td{font-size:10px;color:var(--text3)}
+.tech-content{display:none}
+.tech-content.active{display:block}
+
+/* ── CAREER GRID ── */
+.career-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
+@media(max-width:480px){.career-grid{grid-template-columns:1fr 1fr}}
+.career-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;padding:13px;cursor:pointer;transition:all .15s;text-align:left;font-family:var(--font)}
+.career-card:hover,.career-card.active{border-color:var(--accent);background:var(--accent-l)}
+.career-card .cc-icon{font-size:20px;margin-bottom:6px;display:block}
+.career-card .cc-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.career-card.active .cc-name{color:var(--accent)}
+.career-card .cc-desc{font-size:11px;color:var(--text3)}
+.career-content{display:none}
+.career-content.active{display:block}
+
+/* ── MATRIX ── */
+.matrix-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+@media(max-width:480px){.matrix-grid{grid-template-columns:1fr}}
+.matrix-cell{border-radius:12px;padding:14px;border:1px solid var(--border);cursor:pointer;transition:all .15s;background:var(--bg2)}
+.matrix-cell:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.matrix-cell.good{border-color:#86efac;background:#f0fdf4}
+.matrix-cell.bad{border-color:#fca5a5;background:#fff5f5}
+.matrix-cell.caution{border-color:#fcd34d;background:#fefce8}
+.mc-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;margin-bottom:7px;text-transform:uppercase;letter-spacing:.5px}
+.badge-good{background:var(--green-l);color:#15803d}
+.badge-bad{background:var(--red-l);color:#991b1b}
+.badge-caution{background:var(--amber-l);color:#92400e}
+.mc-icon{font-size:20px;margin-bottom:6px;display:block}
+.mc-title{font-size:13px;font-weight:700;margin-bottom:3px}
+.mc-desc{font-size:11px;color:var(--text2);line-height:1.5}
+
+/* ── CHAIN ── */
+.chain{display:flex;flex-direction:column}
+.ch-step{display:flex;gap:10px}
+.ch-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.ch-dot{width:26px;height:26px;border-radius:50%;background:var(--accent-l);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--accent)}
+.ch-con{width:2px;flex:1;background:var(--border);min-height:14px}
+.ch-body{padding:2px 0 18px;flex:1}
+.ch-title{font-size:13px;font-weight:700;margin-bottom:3px}
+.ch-text{font-size:12px;color:var(--text2);line-height:1.65}
+
+/* ── 2-COL GRID ── */
+.uc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+@media(max-width:500px){.uc-grid{grid-template-columns:1fr}}
+.uc-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:13px 14px}
+.uc-card h5{font-size:13px;font-weight:700;margin-bottom:5px}
+.uc-card p{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* ── STEPS ── */
+.steps{display:flex;overflow-x:auto;margin:14px 0;gap:0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.step{flex:1;min-width:72px;text-align:center;position:relative;padding:10px 6px 6px}
+.step::before{content:'';position:absolute;top:17px;left:50%;right:-50%;height:2px;background:var(--border);z-index:0}
+.step:last-child::before{display:none}
+.step-dot{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 5px;position:relative;z-index:1}
+.step-text{font-size:10px;color:var(--text2);line-height:1.35}
+
+/* ── BUILDER ── */
+.builder-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+@media(max-width:520px){.builder-row{grid-template-columns:1fr}}
+.bpart label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:5px}
+.bpart select,.ifield{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:12px;border-radius:8px;padding:8px 10px;outline:none;transition:border-color .18s}
+.ifield{line-height:1.6}
+textarea.ifield{resize:vertical;min-height:72px}
+.bpart select:focus,.ifield:focus{border-color:var(--accent)}
+.ilabel{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;display:block}
+.formula-out{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:13px 14px;font-size:12.5px;line-height:1.9;color:var(--text);white-space:pre-wrap;min-height:72px;font-family:var(--mono)}
+
+/* ── OUTPUT RATER ── */
+.criteria-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+@media(max-width:480px){.criteria-grid{grid-template-columns:1fr}}
+.crit-card{border:2px solid var(--border);border-radius:10px;padding:11px;cursor:pointer;transition:all .15s;text-align:center;background:var(--bg2)}
+.crit-card:hover{border-color:var(--border2)}
+.crit-card.active-good{border-color:var(--green);background:var(--green-l)}
+.crit-card.active-bad{border-color:var(--red);background:var(--red-l)}
+.crit-icon{font-size:18px;margin-bottom:5px;display:block}
+.crit-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+.crit-q{font-size:10px;color:var(--text3);line-height:1.4}
+.refine-area{display:none}
+.refine-area.show{display:block}
+.cmd-pills{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}
+.cmd-pill{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11.5px;font-weight:500;cursor:pointer;color:var(--text2);transition:all .15s}
+.cmd-pill:hover,.cmd-pill.selected{background:var(--accent-l);border-color:var(--accent);color:var(--accent)}
+.final-prompt{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:11px 13px;font-family:var(--mono);font-size:12px;line-height:1.85;color:var(--text);margin:10px 0;white-space:pre-wrap}
+.output-sample{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:13px 14px;font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:14px;white-space:pre-wrap}
+
+/* ── QUIZ ── */
+.quiz-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px}
+.qprog-bar{height:4px;background:var(--bg3);border-radius:2px;margin:0 0 14px}
+.qprog-fill{height:4px;background:var(--accent);border-radius:2px;transition:width .4s}
+.q-text{font-size:14px;font-weight:700;margin-bottom:12px;color:var(--text);line-height:1.55}
+.q-opts{display:flex;flex-direction:column;gap:6px}
+.q-opt{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 13px;cursor:pointer;font-size:13px;color:var(--text);transition:all .15s;display:flex;align-items:flex-start;gap:9px;text-align:left;font-family:var(--font);width:100%}
+.q-opt:hover{border-color:var(--accent);background:var(--accent-l)}
+.q-opt.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d)}
+.q-opt.wrong{border-color:var(--red);background:var(--red-l);color:var(--red)}
+.q-opt-k{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px}
+.q-exp{margin-top:10px;padding:11px 13px;background:var(--bg3);border-radius:8px;font-size:12.5px;color:var(--text2);line-height:1.7;display:none}
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+
+/* ── LIBRARY ── */
+.lib-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:9px}
+.lib-hdr{padding:12px 15px;display:flex;align-items:center;justify-content:space-between;gap:9px;cursor:pointer;user-select:none}
+.lib-hdr:hover{background:var(--bg3)}
+.lib-left{display:flex;align-items:center;gap:9px}
+.lib-emoji{font-size:17px}
+.lib-name{font-size:13px;font-weight:700;color:var(--text)}
+.lib-desc{font-size:11px;color:var(--text3)}
+.lib-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap}
+.lib-body{display:none;padding:13px 15px;border-top:1px solid var(--border);background:var(--bg3)}
+.lib-body.open{display:block}
+.lib-prompt{font-family:var(--mono);font-size:12px;line-height:1.85;color:var(--text);white-space:pre-wrap}
+
+/* ── DECISION TOOL ── */
+.decision-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:16px 0}
+.dw-hdr{padding:12px 18px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.dw-dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.dw-body{padding:18px}
+.dq-text{font-size:14px;font-weight:700;color:var(--text);margin-bottom:13px;line-height:1.5}
+.dq-opts{display:flex;flex-direction:column;gap:7px}
+.dq-opt{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;cursor:pointer;font-size:13px;color:var(--text);font-family:var(--font);text-align:left;transition:all .15s;display:flex;align-items:center;gap:9px}
+.dq-opt:hover{border-color:var(--accent);background:var(--accent-l)}
+.dq-result{border-radius:10px;padding:14px;font-size:13px;line-height:1.7}
+.res-go{background:var(--green-l);border:1px solid #86efac;color:var(--green-d)}
+.res-caution{background:var(--amber-l);border:1px solid #fcd34d;color:#92400e}
+.res-no{background:var(--red-l);border:1px solid #fca5a5;color:#991b1b}
+.res-title{font-size:15px;font-weight:700;margin-bottom:5px}
+
+/* ── WORKFLOW BUILDER ── */
+.workflow-canvas{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px;margin:16px 0}
+.wf-day{margin-bottom:20px}
+.wf-day-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.wf-slots{display:flex;gap:7px;flex-wrap:wrap}
+.wf-slot{background:var(--bg3);border:1.5px dashed var(--border2);border-radius:10px;padding:9px 12px;min-width:120px;min-height:52px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text3)}
+@media(max-width:480px){.wf-slots{flex-direction:column}.wf-slot{min-width:100%}}
+.wf-slot:hover{border-color:var(--accent);background:var(--accent-l);color:var(--accent)}
+.wf-slot.filled{border-style:solid;border-color:var(--green);background:var(--green-l);color:var(--green-d)}
+.wf-slot.filled:hover{border-color:var(--red);background:var(--red-l);color:var(--red)}
+.action-picker{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;margin:13px 0;display:none}
+.action-picker.show{display:block}
+.ap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:7px}
+.ap-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px 11px;cursor:pointer;transition:all .15s}
+.ap-item:hover{border-color:var(--accent);background:var(--accent-l)}
+.ap-item-icon{font-size:15px;margin-bottom:3px}
+.ap-item-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:1px}
+.ap-item-tool{font-size:10px;color:var(--text3)}
+.wf-savings{background:var(--green-l);border:1px solid #86efac;border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:14px}
+.wf-savings-n{font-size:26px;font-weight:800;color:var(--green-d)}
+.wf-savings-label{font-size:12px;color:var(--green-d)}
+
+/* ── FEAT CARD (Claude tips) ── */
+.feat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:9px}
+.feat-hdr{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.claude-badge{background:linear-gradient(90deg,var(--accent-l),var(--teal-l));border:1px solid #c4b5fd;color:#5b21b6;font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px;letter-spacing:.5px;flex-shrink:0}
+.feat h4{font-size:14px;font-weight:700;color:var(--text)}
+.feat p{font-size:13px;color:var(--text2);line-height:1.7}
+
+hr.div{border:none;border-top:1px solid var(--border);margin:20px 0}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* ── FOOTER ── */
+.site-footer{background:var(--bg2);border-top:2px solid var(--border);padding:28px 20px 22px;text-align:center;margin-top:0}
+.footer-logos{display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:14px;flex-wrap:wrap}
+.footer-logo-item{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--text2)}
+.footer-logo-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.footer-divider{width:1px;height:24px;background:var(--border)}
+.footer-campaign{font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.3px;margin-bottom:12px}
+.footer-gift{background:linear-gradient(135deg,var(--accent-l),#f0f9ff);border:1px solid #c4b5fd;border-radius:12px;padding:14px 18px;display:inline-block;margin-bottom:14px;max-width:520px}
+.footer-gift-label{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.footer-gift-text{font-size:13px;color:var(--text);line-height:1.6;font-weight:500}
+.footer-speaker{font-size:12px;color:var(--text3);line-height:1.6}
+.footer-speaker a{color:var(--accent);text-decoration:none;font-weight:600}
+.footer-speaker a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  <div class="site-logo">
+    <div class="header-brands">
+      <img src="microsoft.webp" alt="Microsoft" style="height:20px;object-fit:contain">
+      <span class="brand-sep">x</span>
+      <img src="Logo-Datapot-transparent-1024x336.png.webp" alt="Datapot" style="height:22px;object-fit:contain">
+    </div>
+    <div>
+      <div class="site-name">AI Credentials Accelerator</div>
+      <span class="site-sub">GenAI Resource Kit &mdash; Webinar Series</span>
+    </div>
+  </div>
+  <div class="track-pills">
+    <button class="tp active" id="pill-business" onclick="switchTrack('business')">📘 Prompt Engineering</button>
+    <button class="tp" id="pill-mindset" onclick="switchTrack('mindset')">🧠 AI Mindset & Workflow</button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════
+     TRACK 1: PROMPT ENGINEERING (Business)
+════════════════════════════════════════════════════ -->
+<div class="track-view active" id="track-business">
+  <nav class="topbar">
+    <button class="nav-btn active" onclick="nav1('b-home',this)">Tổng quan</button>
+    <button class="nav-btn" onclick="nav1('b-fund',this)">Nền tảng</button>
+    <button class="nav-btn" onclick="nav1('b-tech',this)">Kỹ thuật <span class="nb">6</span></button>
+    <button class="nav-btn" onclick="nav1('b-claude',this)">Claude Tips</button>
+    <button class="nav-btn" onclick="nav1('b-career',this)">Theo nghề <span class="nb">HOT</span></button>
+    <button class="nav-btn" onclick="nav1('b-builder',this)">Builder</button>
+    <button class="nav-btn" onclick="nav1('b-quiz',this)">Quiz <span class="nb">8 câu</span></button>
+  </nav>
+
+  <!-- HOME -->
+  <div class="section active" id="b-home">
+    <div class="hero">
+      <div class="hero-badge">📖 Microsoft x Datapot &mdash; AI Credentials Accelerator</div>
+      <h1>Dùng AI thật sự<br>hiệu quả trong <em>công việc</em></h1>
+      <p>Prompt Engineering thực chiến cho Business Team &mdash; Tài chính, Marketing, Quản trị, Vận hành</p>
+      <div class="hero-targets">
+        <span class="htag">🏦 Tài chính & Ngân hàng</span>
+        <span class="htag">📊 Analyst & Research</span>
+        <span class="htag">📣 Marketing & Sales</span>
+        <span class="htag">🏢 Quản trị & Vận hành</span>
+      </div>
+    </div>
+
+    <div class="sec-label">Số liệu thực tế 2025</div>
+    <div class="uc-grid">
+      <div class="uc-card" style="border-left:3px solid var(--red)"><h5>300 triệu</h5><p>việc làm toàn cầu bị ảnh hưởng bởi GenAI <em style="color:var(--text3)">(Goldman Sachs 2025)</em></p></div>
+      <div class="uc-card" style="border-left:3px solid var(--accent)"><h5>75% knowledge workers</h5><p>đã dùng AI tại nơi làm việc <em style="color:var(--text3)">(WEF Future of Jobs 2025)</em></p></div>
+      <div class="uc-card" style="border-left:3px solid var(--green)"><h5>+66% năng suất</h5><p>khi dùng AI đúng cách <em style="color:var(--text3)">(WEF Report 2025)</em></p></div>
+      <div class="uc-card" style="border-left:3px solid var(--amber)"><h5>+25% nhanh hơn</h5><p>hoàn thành task — 758 consultants tested <em style="color:var(--text3)">(Harvard-BCG Study)</em></p></div>
+    </div>
+    <div class="tip tip-amber"><strong>Net gain:</strong> 170 triệu việc làm MỚI được tạo ra vs 92 triệu bị thay thế = <strong>+78 triệu việc net</strong> (WEF 2025). AI không xóa việc — AI thay đổi việc.</div>
+
+    <div class="sec-label">5 sai lầm phổ biến nhất khi dùng AI</div>
+    <div class="acc open"><div class="acc-hdr" onclick="toggleAcc(this)">❌ Sai lầm 1: Dùng AI như Google — gõ keyword ngắn, chờ phép màu <span class="acc-arrow">▼</span></div><div class="acc-body">✓ <strong>Cách nghĩ đúng:</strong> AI cần context đầy đủ. Prompt rõ → kết quả tốt. Garbage in = Garbage out.</div></div>
+    <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">❌ Sai lầm 2: Kỳ vọng AI đúng 100% ngay lần đầu <span class="acc-arrow">▼</span></div><div class="acc-body">✓ <strong>Cách nghĩ đúng:</strong> AI tạo draft 80% — bạn review và tinh chỉnh 20%. Luôn verify output.</div></div>
+    <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">❌ Sai lầm 3: Copy nguyên xi output AI — không kiểm chứng <span class="acc-arrow">▼</span></div><div class="acc-body">✓ <strong>Cách nghĩ đúng:</strong> AI có thể sai — đặc biệt số liệu, ngày tháng, tên người. Fact-check trước khi dùng.</div></div>
+    <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">❌ Sai lầm 4: Chỉ dùng AI cho việc 'thú vị' — bỏ qua việc lặp lại <span class="acc-arrow">▼</span></div><div class="acc-body">✓ <strong>Cách nghĩ đúng:</strong> Giá trị lớn nhất nằm ở tự động hóa công việc nhàm chán, lặp lại hàng ngày.</div></div>
+    <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">❌ Sai lầm 5: Nghĩ AI quá phức tạp — cần biết kỹ thuật <span class="acc-arrow">▼</span></div><div class="acc-body">✓ <strong>Cách nghĩ đúng:</strong> Không cần lập trình. Biết viết câu rõ ràng là đủ để bắt đầu.</div></div>
+
+    <div class="sec-label">Prompt xấu vs Prompt tốt — cùng mục tiêu, chỉ khác cách hỏi</div>
+    <div class="cmp">
+      <div class="cmp-box cmp-bad">
+        <div class="cmp-label">❌ Prompt xấu</div>
+        <div class="cmp-text">"Viết email xin thực tập"
+
+→ Chung chung, không cá nhân hóa
+→ Tone cứng nhắc, không có điểm nhấn</div>
+      </div>
+      <div class="cmp-box cmp-good">
+        <div class="cmp-label">✓ Prompt tốt — RCTF framework</div>
+        <div class="cmp-text">[R] "Bạn là HR professional 10 năm kinh nghiệm FMCG."
+[C] "Tôi là SV năm 4 Marketing, ĐH Ngoại Thương, GPA 3.6, 2 năm chạy social media cho club."
+[T] "Viết email xin thực tập Brand Assistant tại Unilever VN."
+[F] "200 từ, tone tự tin, kết bằng 1 câu chủ động."</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Bạn sẽ học được gì</div>
+    <div class="card">
+      <div class="chain">
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot">1</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Nền tảng — 5 nguyên tắc + Framework RCTF</div><div class="ch-text">Role + Context + Task + Format — framework cốt lõi từ webinar</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot">2</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">6 kỹ thuật nâng cao</div><div class="ch-text">CoT, Few-Shot, Role, XML Tags, Output Control, Meta Prompting</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot">3</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Claude-specific tips</div><div class="ch-text">Những tính năng đặc biệt hầu hết mọi người không biết</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot">4</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Hướng dẫn theo nghề</div><div class="ch-text">Prompt templates cho Tài chính, Marketing, Quản trị, Sinh viên</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot">5</div></div><div class="ch-body"><div class="ch-title">Builder + Quiz thực chiến</div><div class="ch-text">Tự tạo prompt + kiểm tra 8 câu</div></div></div>
+      </div>
+    </div>
+
+    <div class="sec-label">AI có thể dùng cho việc gì</div>
+    <div class="uc-grid">
+      <div class="uc-card"><h5>📊 Phân tích & Báo cáo</h5><p>Tóm tắt báo cáo dài, trích insight, tạo executive summary</p></div>
+      <div class="uc-card"><h5>✍️ Viết & Soạn thảo</h5><p>Email, báo cáo, proposal, presentation outline</p></div>
+      <div class="uc-card"><h5>🔍 Research & Tổng hợp</h5><p>Tổng hợp thông tin ngành, phân tích đối thủ</p></div>
+      <div class="uc-card"><h5>🗂️ Lên kế hoạch</h5><p>Action plan, checklist, phân tích pros/cons, template</p></div>
+      <div class="uc-card"><h5>💬 Dịch & Chỉnh sửa</h5><p>Dịch tài liệu chuyên ngành, chỉnh ngữ pháp, đổi tone</p></div>
+      <div class="uc-card"><h5>🧮 Công thức & Mô hình</h5><p>Xây công thức Excel, giải thích kết quả thống kê</p></div>
+    </div>
+    <div class="tip tip-green"><strong>Quan trọng:</strong> AI không thay thế bạn — AI làm nhanh việc lặp lại để bạn tập trung vào tư duy chiến lược.</div>
+  </div>
+
+  <!-- FUNDAMENTALS -->
+  <div class="section" id="b-fund">
+    <div class="page-title">Nền tảng Prompt Engineering</div>
+    <div class="page-sub">5 nguyên tắc vàng — áp dụng được cho mọi AI tool</div>
+
+    <div class="sec-label">Nguyên tắc 1 — Rõ ràng & Cụ thể</div>
+    <div class="card">
+      <p class="card-text">Càng mơ hồ, AI càng phải đoán → kết quả chung chung. Nói rõ đối tượng, mục đích, phạm vi.</p>
+      <div class="cmp">
+        <div class="cmp-box cmp-bad"><div class="cmp-label">❌ Mơ hồ</div><div class="cmp-text">"Viết email cho khách hàng về sản phẩm mới"</div></div>
+        <div class="cmp-box cmp-good"><div class="cmp-label">✓ Cụ thể</div><div class="cmp-text">"Viết email giới thiệu thẻ tín dụng mới cho KH cao cấp. Tone: chuyên nghiệp. Độ dài: 150-200 từ. Nhấn mạnh: hoàn tiền 3%, phòng chờ sân bay."</div></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Nguyên tắc 2 — Cung cấp ngữ cảnh đầy đủ</div>
+    <div class="card">
+      <p class="card-text" style="margin-bottom:9px">AI không biết gì về bối cảnh của bạn. Cung cấp: bạn là ai, đang làm gì, đối tượng là ai, mục đích là gì.</p>
+      <div class="code-wrap"><div class="code"><span class="tg">[Bối cảnh]</span> <span class="sv">Tôi là analyst tại bộ phận Risk Management</span>
+<span class="tg">[Đối tượng]</span>  <span class="sv">Báo cáo sẽ trình lên Ban Giám đốc</span>
+<span class="tg">[Dữ liệu]</span>   <span class="sv">NPL ratio Q3: 2.8% (Q2: 2.4%, industry avg: 3.1%)</span>
+<span class="tg">[Yêu cầu]</span>   <span class="sv">Viết 1 đoạn diễn giải, nêu nguyên nhân và hàm ý rủi ro</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div>
+    </div>
+
+    <div class="sec-label">Nguyên tắc 3 — Định rõ vai trò & định dạng đầu ra</div>
+    <div class="card">
+      <div class="cmp">
+        <div class="cmp-box cmp-bad"><div class="cmp-label">❌ Không định vai</div><div class="cmp-text">"Phân tích chiến lược marketing của Vinamilk"</div></div>
+        <div class="cmp-box cmp-good"><div class="cmp-label">✓ Có vai + format</div><div class="cmp-text">"Đóng vai Brand Consultant. Phân tích theo 4P. Format: bảng markdown. Thêm 3 recommendation cuối."</div></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Nguyên tắc 4 — Nói cái muốn, không nói cái không muốn</div>
+    <div class="card">
+      <div class="cmp">
+        <div class="cmp-box cmp-bad"><div class="cmp-label">❌ Hướng dẫn tiêu cực</div><div class="cmp-text">"Đừng dùng thuật ngữ phức tạp. Đừng quá dài."</div></div>
+        <div class="cmp-box cmp-good"><div class="cmp-label">✓ Hướng dẫn tích cực</div><div class="cmp-text">"Dùng ngôn ngữ đơn giản. Tối đa 150 từ. Viết 2 đoạn văn liên mạch."</div></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Nguyên tắc 5 — Iterate: Viết → Test → Cải thiện</div>
+    <div class="card">
+      <div class="steps">
+        <div class="step"><div class="step-dot">1</div><div class="step-text">Viết prompt ban đầu</div></div>
+        <div class="step"><div class="step-dot">2</div><div class="step-text">Đọc output kỹ</div></div>
+        <div class="step"><div class="step-dot">3</div><div class="step-text">Xác định vấn đề</div></div>
+        <div class="step"><div class="step-dot">4</div><div class="step-text">Tinh chỉnh 1 điểm</div></div>
+        <div class="step"><div class="step-dot">5</div><div class="step-text">Lặp lại</div></div>
+      </div>
+      <div class="tip tip-green"><strong>Mẹo:</strong> Hỏi AI: "Điều gì trong prompt của tôi khiến bạn trả lời như vậy? Tôi cần thêm gì?"</div>
+    </div>
+
+    <div class="sec-label">Framework RCTF — Cấu trúc prompt chuẩn (từ Webinar)</div>
+    <div class="tip" style="margin-bottom:12px"><strong>RCTF = Role + Context + Task + Format</strong> — đây là framework cốt lõi nhất trong buổi webinar. Học đúng → AI cho output tốt hơn 10x.</div>
+    <div class="code-wrap"><div class="code"><span class="cm"># FRAMEWORK RCTF — PROMPT TEMPLATE CHUẨN</span>
+
+<span class="kw">[R] ROLE:</span>     <span class="sv">Bạn là [chức danh] với [X năm] kinh nghiệm trong [lĩnh vực]</span>
+
+<span class="kw">[C] CONTEXT:</span>  <span class="sv">Tôi đang [làm gì] tại [tổ chức/bối cảnh]</span>
+               <span class="sv">Đối tượng đọc output: [ai]</span>
+               <span class="sv">Mục tiêu: [mục đích cuối cùng]</span>
+               <span class="sv">Dữ liệu: [Paste thông tin cần xử lý vào đây]</span>
+
+<span class="kw">[T] TASK:</span>     <span class="sv">Hãy [động từ cụ thể] [đối tượng]</span>
+
+<span class="kw">[F] FORMAT:</span>   <span class="sv">Trả về dưới dạng [format]</span>
+               <span class="sv">Bao gồm: [các phần cần có]</span>
+               <span class="sv">Độ dài: [số từ / số mục]</span>
+               <span class="sv">Giới hạn: Luôn có [X]. Không cần [Y].</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div>
+  </div>
+
+  <!-- TECHNIQUES -->
+  <div class="section" id="b-tech">
+    <div class="page-title">6 Kỹ thuật Prompt nâng cao</div>
+    <div class="page-sub">Mỗi kỹ thuật có ví dụ thực tế từ môi trường kinh tế, tài chính, văn phòng</div>
+
+    <div class="tech-grid">
+      <div class="tech-btn active" onclick="showTech('cot',this)"><span class="ti">🧠</span><span class="tn">Chain-of-Thought</span><span class="td">Suy luận từng bước</span></div>
+      <div class="tech-btn" onclick="showTech('fewshot',this)"><span class="ti">📚</span><span class="tn">Few-Shot</span><span class="td">Dạy qua ví dụ</span></div>
+      <div class="tech-btn" onclick="showTech('role',this)"><span class="ti">🎭</span><span class="tn">Role Prompting</span><span class="td">Đóng vai chuyên gia</span></div>
+      <div class="tech-btn" onclick="showTech('xml',this)"><span class="ti">🏷️</span><span class="tn">XML Tags</span><span class="td">Cấu trúc hóa prompt</span></div>
+      <div class="tech-btn" onclick="showTech('output',this)"><span class="ti">📋</span><span class="tn">Output Control</span><span class="td">Kiểm soát đầu ra</span></div>
+      <div class="tech-btn" onclick="showTech('meta',this)"><span class="ti">🔄</span><span class="tn">Meta Prompting</span><span class="td">AI tạo prompt cho AI</span></div>
+    </div>
+
+    <div class="tech-content active" id="tech-cot">
+      <div class="card"><div class="card-row"><div style="width:36px;height:36px;border-radius:9px;background:var(--accent-l);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🧠</div><div><h3>Chain-of-Thought — Yêu cầu AI suy luận từng bước</h3></div></div>
+      <p class="card-text" style="margin:9px 0">Thay vì để AI nhảy thẳng đến kết luận, yêu cầu nó trình bày quá trình tư duy từng bước. Quan trọng với phân tích phức tạp.</p>
+      <div class="tags"><span class="tag tag-green">✓ Phân tích đầu tư</span><span class="tag tag-green">✓ Ra quyết định</span><span class="tag tag-green">✓ Đánh giá rủi ro</span><span class="tag tag-red">✗ Câu hỏi đơn giản</span></div>
+      <div class="code-wrap"><div class="code"><span class="cm"># Ví dụ — Quyết định mở rộng thị trường</span>
+<span class="sv">"Công ty A (FMCG, 500 tỷ, 18% thị phần miền Nam) cân nhắc
+mở rộng ra miền Bắc. Chi phí setup: 80 tỷ.
+
+Phân tích từng bước:
+1. Thị trường miền Bắc: quy mô, tốc độ tăng, cạnh tranh
+2. Năng lực công ty: tài chính, logistics, thương hiệu
+3. Phân tích rủi ro (ít nhất 3 rủi ro)
+4. Break-even dự kiến
+5. Kết luận: Nên/Không nên và điều kiện cần thiết"</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div>
+      <div class="tip tip-blue"><strong>Pro tip:</strong> Thêm: "Sau khi hoàn thành, chỉ ra điểm nào bạn không chắc chắn, cần kiểm tra lại."</div></div>
+    </div>
+
+    <div class="tech-content" id="tech-fewshot">
+      <div class="card"><div class="card-row"><div style="width:36px;height:36px;border-radius:9px;background:var(--blue-l);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">📚</div><div><h3>Few-Shot — Dạy AI qua ví dụ mẫu</h3></div></div>
+      <p class="card-text" style="margin:9px 0">Cung cấp 2–5 cặp Input → Output mẫu. AI học pattern và tạo output đúng định dạng/phong cách.</p>
+      <div class="code-wrap"><div class="code"><span class="cm"># Phân loại email khách hàng ngân hàng</span>
+
+<span class="kw">Email:</span> <span class="sv">"Thẻ tôi bị khóa không rút được tiền"</span>
+<span class="vr">→</span> KHẨN CẤP | Thẻ & Tài khoản | Ưu tiên: Cao
+
+<span class="kw">Email:</span> <span class="sv">"Hỏi lãi suất vay mua nhà hiện tại"</span>
+<span class="vr">→</span> THÔNG TIN | Tín dụng cá nhân | Ưu tiên: Thấp
+
+<span class="kw">Email:</span> <span class="sv">"Có giao dịch lạ trên tài khoản sáng nay"</span>
+<span class="vr">→</span> KHẨN CẤP | An toàn bảo mật | Ưu tiên: Rất cao
+
+<span class="cm"># Bây giờ phân loại:</span>
+<span class="kw">Email:</span> <span class="sv">"Tôi đổi địa chỉ nhà, muốn cập nhật hệ thống"</span>
+<span class="vr">→</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div>
+      <div class="tip tip-amber"><strong>Lưu ý:</strong> Ví dụ phải đa dạng — nếu tất cả đều tích cực, AI sẽ bị bias bỏ qua trường hợp tiêu cực.</div></div>
+    </div>
+
+    <div class="tech-content" id="tech-role">
+      <div class="card"><div class="card-row"><div style="width:36px;height:36px;border-radius:9px;background:var(--teal-l);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🎭</div><div><h3>Role Prompting — Gán vai trò chuyên gia</h3></div></div>
+      <p class="card-text" style="margin:9px 0">Gán vai trò cụ thể, AI tự điều chỉnh ngôn ngữ, mức kỹ thuật, góc nhìn cho phù hợp.</p>
+      <div class="code-wrap"><div class="code"><span class="cm"># Vai trò theo công việc</span>
+
+<span class="kw">Tài chính:</span>
+<span class="sv">"Bạn là CFA charterholder 10 năm kinh nghiệm phân tích
+cổ phiếu Đông Nam Á. Chuyên về định giá DCF..."</span>
+
+<span class="kw">Marketing:</span>
+<span class="sv">"Bạn là Senior Brand Manager từ Unilever Việt Nam,
+am hiểu hành vi người tiêu dùng Việt, đặc biệt Gen Z..."</span>
+
+<span class="kw">Kỹ thuật Multi-Role — nhiều góc nhìn:</span>
+<span class="sv">"Phân tích từ 3 góc độ:
+1. CFO: tài chính — vốn, ROI, payback
+2. COO: vận hành — nguồn lực, rủi ro
+3. CMO: thị trường — tiềm năng, cạnh tranh"</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div>
+    </div>
+
+    <div class="tech-content" id="tech-xml">
+      <div class="card"><div class="card-row"><div style="width:36px;height:36px;border-radius:9px;background:var(--green-l);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🏷️</div><div><h3>XML Tags — Cấu trúc hóa prompt (đặc biệt cho Claude)</h3></div></div>
+      <p class="card-text" style="margin:9px 0">Claude được training đặc biệt với XML. Khi prompt dài và phức tạp, XML tags giúp phân biệt rõ từng phần.</p>
+      <div class="code-wrap"><div class="code"><span class="tg">&lt;vai_tro&gt;</span>
+  <span class="sv">Chuyên gia phân tích tín dụng doanh nghiệp, 8 năm kinh nghiệm</span>
+<span class="tg">&lt;/vai_tro&gt;</span>
+
+<span class="tg">&lt;boi_canh&gt;</span>
+  <span class="sv">Thẩm định hồ sơ vay vốn 50 tỷ của doanh nghiệp sản xuất X</span>
+<span class="tg">&lt;/boi_canh&gt;</span>
+
+<span class="tg">&lt;du_lieu&gt;</span>
+  <span class="sv">Doanh thu 2023: 180 tỷ (+15% YoY) | Margin: 4.7%
+  Nợ: 35 tỷ | Dòng tiền: +12 tỷ | TSDB: 75 tỷ</span>
+<span class="tg">&lt;/du_lieu&gt;</span>
+
+<span class="tg">&lt;yeu_cau&gt;</span>
+  <span class="sv">Điểm mạnh / Rủi ro / Thông tin cần thêm / Đề xuất</span>
+<span class="tg">&lt;/yeu_cau&gt;</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div>
+      <div class="tip"><strong>Tags hay dùng:</strong> vai_tro, boi_canh, du_lieu, vi_du, nhiem_vu, dinh_dang, gioi_han</div></div>
+    </div>
+
+    <div class="tech-content" id="tech-output">
+      <div class="card"><div class="card-row"><div style="width:36px;height:36px;border-radius:9px;background:var(--amber-l);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">📋</div><div><h3>Output Control — Kiểm soát hoàn toàn đầu ra</h3></div></div>
+      <div class="code-wrap"><div class="code"><span class="cm"># Kiểm soát định dạng</span>
+<span class="sv">"Bảng markdown: | Tiêu chí | Đánh giá | Điểm | Ghi chú |"</span>
+<span class="sv">"JSON với keys: ten_sp, doanh_thu, tang_truong, rui_ro"</span>
+<span class="sv">"Slide outline: 8 slide, mỗi slide: Tiêu đề + 3 bullet"</span>
+
+<span class="cm"># Kiểm soát độ dài & tone</span>
+<span class="sv">"Tóm tắt executive summary trong đúng 5 câu"</span>
+<span class="sv">"Tone: chuyên nghiệp nhưng không lạnh lùng — như email đồng nghiệp"</span>
+<span class="sv">"Chỉ trả về content cuối cùng — không cần giải thích, không cần intro"</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div>
+    </div>
+
+    <div class="tech-content" id="tech-meta">
+      <div class="card"><div class="card-row"><div style="width:36px;height:36px;border-radius:9px;background:var(--orange-l);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🔄</div><div><h3>Meta Prompting — Dùng AI để cải thiện Prompt</h3></div></div>
+      <div class="code-wrap"><div class="code"><span class="cm"># Nhờ AI cải thiện prompt của bạn</span>
+<span class="sv">"Đây là prompt tôi đang dùng:
+[paste prompt hiện tại]
+
+Hãy: 1. Phân tích điểm yếu, 2. Viết lại phiên bản cải thiện,
+3. Giải thích từng thay đổi và lý do"</span>
+
+<span class="cm"># Prompt Chain — chia nhỏ bài toán lớn</span>
+<span class="sv">Bước 1: "Liệt kê tất cả dữ liệu định lượng từ văn bản sau: [...]"
+Bước 2: "Dựa vào danh sách trên, phân tích xu hướng và anomaly"
+Bước 3: "Viết executive summary 1 trang cho CFO dựa trên phân tích trên"</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div>
+    </div>
+  </div>
+
+  <!-- CLAUDE TIPS -->
+  <div class="section" id="b-claude">
+    <div class="page-title">Claude-Specific Tips</div>
+    <div class="page-sub">Những điểm đặc biệt của Claude hầu hết người dùng không biết</div>
+
+    <div class="feat"><div class="feat-hdr"><span class="claude-badge">CLAUDE</span><h4>🏷️ XML Tags — Claude hiểu cấu trúc này tốt nhất</h4></div><p>Anthropic training Claude đặc biệt với XML structure. Khi prompt dài, dùng XML tags để phân biệt rõ context, data, task, output format.</p></div>
+
+    <div class="feat"><div class="feat-hdr"><span class="claude-badge">CLAUDE</span><h4>🔍 Honest về giới hạn — Khai thác điều này</h4></div>
+    <p>Claude nói rõ khi không chắc thay vì bịa. Khai thác bằng cách thêm:</p>
+    <div class="code-wrap"><div class="code"><span class="sv">"Chỉ trả lời những phần bạn tự tin 80%+.
+Với phần không chắc, ghi rõ: [CẦN KIỂM TRA] và lý do."</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="tip tip-green"><strong>Tại sao quan trọng:</strong> Với dữ liệu tài chính, biết chỗ nào cần fact-check còn quan trọng hơn nhận output tự tin nhưng sai.</div></div>
+
+    <div class="feat"><div class="feat-hdr"><span class="claude-badge">CLAUDE</span><h4>📄 Xử lý tài liệu dài xuất sắc</h4></div>
+    <p>Claude có context window lớn — paste cả báo cáo tài chính, hợp đồng dài, nhiều bài báo cùng lúc. Hỏi nhiều phần khác nhau trong một hội thoại mà không cần paste lại.</p></div>
+
+    <div class="feat"><div class="feat-hdr"><span class="claude-badge">CLAUDE</span><h4>🔁 Tinh chỉnh iterative trong một hội thoại</h4></div>
+    <div class="code-wrap"><div class="code"><span class="sv">Lần 1: "Viết draft email giới thiệu dịch vụ cho CFO..."
+→ Đọc output
+
+Lần 2: "Tốt rồi. Làm ngắn lại 30%, mạnh hơn phần ROI"
+→ Đọc output
+
+Lần 3: "Đổi đoạn cuối thành CTA rõ ràng hơn. Giữ nguyên phần còn lại"</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div>
+
+    <div class="feat"><div class="feat-hdr"><span class="claude-badge">CLAUDE</span><h4>🌐 Tiếng Việt rất tốt</h4></div>
+    <div class="code-wrap"><div class="code"><span class="sv">"Trả lời bằng tiếng Việt. Thuật ngữ tài chính/kỹ thuật
+giữ nguyên tiếng Anh (ROI, EBITDA, KPI — không dịch).
+Phần giải thích dùng tiếng Việt tự nhiên."</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div>
+
+    <div class="tip tip-blue" style="margin-top:16px"><strong>Golden Rule với Claude:</strong> Giải thích <em>tại sao</em> bạn cần thứ đó. "Viết ngắn <em>vì</em> sẽ đăng LinkedIn" cho kết quả tốt hơn "Viết ngắn".</div>
+  </div>
+
+  <!-- CAREER -->
+  <div class="section" id="b-career">
+    <div class="page-title">Hướng dẫn theo nghề</div>
+    <div class="page-sub">Prompt templates thực tế — copy và điền thông tin của bạn vào</div>
+    <div class="career-grid">
+      <div class="career-card active" onclick="showCareer('finance',this)"><span class="cc-icon">🏦</span><span class="cc-name">Tài chính & Ngân hàng</span><span class="cc-desc">Analyst, banker, kiểm toán</span></div>
+      <div class="career-card" onclick="showCareer('marketing',this)"><span class="cc-icon">📣</span><span class="cc-name">Marketing & Sales</span><span class="cc-desc">Brand, content, digital</span></div>
+      <div class="career-card" onclick="showCareer('management',this)"><span class="cc-icon">🏢</span><span class="cc-name">Quản trị & Văn phòng</span><span class="cc-desc">Manager, admin, HR, ops</span></div>
+      <div class="career-card" onclick="showCareer('student',this)"><span class="cc-icon">🎓</span><span class="cc-name">Sinh viên Kinh tế</span><span class="cc-desc">Luận văn, case study, xin việc</span></div>
+    </div>
+
+    <div class="career-content active" id="career-finance">
+      <div class="acc open"><div class="acc-hdr" onclick="toggleAcc(this)">📊 Phân tích báo cáo tài chính doanh nghiệp <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="code-wrap"><div class="code"><span class="tg">&lt;vai_tro&gt;</span>Chuyên gia phân tích tài chính 10 năm kinh nghiệm<span class="tg">&lt;/vai_tro&gt;</span>
+
+<span class="tg">&lt;bao_cao&gt;</span>[Paste nội dung BCTC vào đây]<span class="tg">&lt;/bao_cao&gt;</span>
+
+<span class="tg">&lt;yeu_cau&gt;</span>
+1. Chỉ số thanh khoản (Current ratio, Quick ratio)
+2. Chỉ số sinh lời (ROE, ROA, Net margin) — so sánh ngành
+3. Cơ cấu vốn và đòn bẩy — rủi ro
+4. Xu hướng dòng tiền
+5. 3 điểm mạnh và 3 điểm rủi ro lớn nhất
+6. Đề xuất: Nên/Không nên đầu tư/cho vay — điều kiện
+<span class="tg">&lt;/yeu_cau&gt;</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div></div>
+
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">📝 Viết Executive Summary cho BGĐ <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="code-wrap"><div class="code"><span class="sv">"Từ dữ liệu sau, viết Executive Summary ~300 từ cho Ban Giám đốc:
+[paste dữ liệu]
+
+Cấu trúc:
+1. Headline số (1-2 câu) — điều quan trọng nhất
+2. Bối cảnh (2-3 câu)
+3. Findings chính (3-4 bullet) — data-driven
+4. Rủi ro cần lưu ý (2-3 bullet)
+5. Recommendation (1-2 câu rõ ràng)
+
+Tone: chuyên nghiệp, trực tiếp. BGĐ đọc trong 2 phút."</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div></div>
+
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">🏦 Thẩm định hồ sơ vay vốn <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="code-wrap"><div class="code"><span class="sv">"Bạn là chuyên viên thẩm định tín dụng ngân hàng.
+
+Hồ sơ vay mua nhà:
+- Thu nhập: 25 triệu/tháng
+- Số tiền vay: 2 tỷ, kỳ hạn 20 năm
+- Tài sản thế chấp: căn hộ 3.2 tỷ
+- Dư nợ hiện tại: [nếu có]
+
+Đánh giá:
+1. DTI ratio — tính toán và nhận xét
+2. LTV ratio — đánh giá rủi ro
+3. Điểm mạnh của hồ sơ
+4. Rủi ro và điều kiện cần xem xét thêm
+5. Đề xuất: Phê duyệt / Cần bổ sung / Từ chối"</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div></div>
+    </div>
+
+    <div class="career-content" id="career-marketing">
+      <div class="acc open"><div class="acc-hdr" onclick="toggleAcc(this)">✍️ Viết content đa kênh từ 1 brief <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="code-wrap"><div class="code"><span class="sv">"Bạn là Content Strategist thị trường Việt Nam.
+
+Brief: Sản phẩm: [tên] | USP: [điểm khác biệt] | Target: [đối tượng]
+
+Tạo content cho 4 kênh:
+1. LINKEDIN (200-250 từ): Insight-driven, kết thúc câu hỏi
+2. FACEBOOK (100-130 từ): Casual, emoji phù hợp, CTA
+3. EMAIL SUBJECT: 3 phương án, dưới 50 ký tự
+4. ZALO (60-80 từ): Thân thiện, personal
+
+Message core nhất quán giữa các kênh."</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div></div>
+
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">📊 Đọc và diễn giải kết quả campaign <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="code-wrap"><div class="code"><span class="sv">"Kết quả campaign tháng qua:
+[paste: impressions, CTR, CPC, CPL, ROAS...]
+
+Hãy:
+1. Đánh giá từng chỉ số — tốt / cần cải thiện / đáng lo
+2. Top 2-3 vấn đề lớn nhất ảnh hưởng hiệu quả
+3. 5 cải tiến cụ thể cho tháng tới (không chung chung)
+4. Ưu tiên cải tiến nào trước — lý do
+
+Format: Bảng đánh giá + narrative + action plan"</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div></div>
+    </div>
+
+    <div class="career-content" id="career-management">
+      <div class="acc open"><div class="acc-hdr" onclick="toggleAcc(this)">📋 Lên Action Plan cho dự án <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="code-wrap"><div class="code"><span class="sv">"Bạn là Project Manager có kinh nghiệm tại doanh nghiệp VN.
+
+Dự án: [mô tả mục tiêu]
+Timeline: [từ ... đến ...]
+Nguồn lực: [người, ngân sách]
+
+Tạo Action Plan:
+1. Milestones chính (4-6 milestones)
+2. Với mỗi milestone: tasks, owner (role), deadline, dependencies
+3. Top 3 rủi ro + contingency plan
+4. KPIs đo thành công cho từng milestone
+
+Format: Bảng (Milestone | Task | Owner | Deadline | Status)"</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div></div>
+
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">📝 Soạn JD tuyển dụng <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="code-wrap"><div class="code"><span class="sv">"Viết JD cho vị trí [tên vị trí] tại [loại công ty].
+Cấp độ: [junior/mid/senior] | Báo cáo cho: [ai]
+
+Bao gồm:
+1. Mô tả vị trí (3-4 câu hấp dẫn)
+2. Trách nhiệm chính (6-8 bullets, bắt đầu động từ hành động)
+3. Yêu cầu bắt buộc (must-have)
+4. Yêu cầu ưu tiên (nice-to-have)
+5. Quyền lợi (mô tả loại quyền lợi, không cần con số)
+
+Tone: professional nhưng hấp dẫn — thu hút ứng viên tài năng."</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div></div>
+    </div>
+
+    <div class="career-content" id="career-student">
+      <div class="acc open"><div class="acc-hdr" onclick="toggleAcc(this)">📖 Giải thích khái niệm kinh tế khó <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="code-wrap"><div class="code"><span class="sv">"Giải thích [khái niệm] theo 3 cấp độ:
+
+Level 1 — Cho người không học kinh tế: ví dụ cuộc sống (2-3 câu)
+Level 2 — Sinh viên năm 1-2: định nghĩa chính thức + ví dụ
+Level 3 — Sinh viên năm 3-4: ứng dụng phân tích kinh doanh,
+           liên kết khái niệm liên quan
+
+Kèm: 1 câu hỏi ôn tập điển hình + gợi ý hướng trả lời"</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div></div>
+
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">💼 Chuẩn bị phỏng vấn xin việc <span class="acc-arrow">▼</span></div>
+      <div class="acc-body"><div class="code-wrap"><div class="code"><span class="sv">"Tôi sắp phỏng vấn vào [vị trí] tại [ngành].
+Background: [ngành học, internship, skills].
+
+Hãy:
+1. Dự đoán 10 câu hỏi phổ biến nhất
+2. Với 5 câu khó nhất, gợi ý trả lời theo STAR framework
+3. 3-5 câu hỏi hay nên hỏi ngược lại nhà tuyển dụng
+4. Cách xử lý câu hỏi 'weakness' cho freshgrad"</span></div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div></div>
+    </div>
+  </div>
+
+  <!-- BUILDER -->
+  <div class="section" id="b-builder">
+    <div class="page-title">Prompt Builder</div>
+    <div class="page-sub">Ghép nhanh prompt theo framework RCTF — Role + Context + Task + Format</div>
+    <div class="builder-row">
+      <div class="bpart"><label>[R] Role — Vai trò</label><select id="sel-role" onchange="buildPrompt()"><option value="">-- Không có --</option><option value="Bạn là senior financial analyst với 10 năm kinh nghiệm phân tích doanh nghiệp.">Analyst Tài chính</option><option value="Bạn là Senior Brand Manager 8 năm kinh nghiệm FMCG tại Việt Nam.">Brand Manager</option><option value="Bạn là Project Manager có kinh nghiệm triển khai dự án doanh nghiệp VN.">Project Manager</option><option value="Bạn là CHRO xây hệ thống KPI và quản trị nhân sự tập đoàn Việt Nam.">HR Manager</option></select></div>
+      <div class="bpart"><label>[T] Task — Tác vụ</label><select id="sel-task" onchange="buildPrompt()"><option value="Phân tích và đưa ra 5 insight quan trọng nhất">Phân tích & Insight</option><option value="Viết báo cáo tóm tắt cho cấp quản lý">Viết báo cáo tóm tắt</option><option value="Đánh giá và cho recommendation có cơ sở">Đánh giá & Recommendation</option><option value="Lên kế hoạch chi tiết với timeline và KPIs">Lập kế hoạch</option><option value="Viết email/văn bản chuyên nghiệp">Soạn thảo văn bản</option></select></div>
+      <div class="bpart"><label>[F] Format — Định dạng</label><select id="sel-format" onchange="buildPrompt()"><option value="Trả lời dưới dạng bảng markdown">Bảng markdown</option><option value="Trả lời bằng bullet points 2 cấp">Bullet points</option><option value="Viết thành đoạn văn có heading">Đoạn văn có heading</option><option value="Executive Summary: Headline → Context → Findings → Recommendation">Executive Summary</option></select></div>
+      <div class="bpart"><label>⚙️ Kỹ thuật bổ sung</label><select id="sel-tech" onchange="buildPrompt()"><option value="">-- Không có --</option><option value="Hãy suy nghĩ từng bước và trình bày quá trình tư duy.">Chain-of-Thought</option><option value="Ghi [CẦN VERIFY] bên cạnh điểm không chắc chắn.">Calibrated Uncertainty</option><option value="Sau khi đưa ra recommendation, tự phản biện: lý do gì khiến nó có thể sai?">Self-critique</option></select></div>
+    </div>
+    <div style="margin-bottom:13px"><label class="ilabel">[C] Context — Bối cảnh / Dữ liệu của bạn</label><textarea class="ifield" id="user-content" rows="3" placeholder="VD: Tôi là sinh viên năm 4 Marketing, ĐH Ngoại Thương. Đang cần viết báo cáo thực tập..." oninput="buildPrompt()"></textarea></div>
+    <label class="ilabel">✨ Prompt hoàn chỉnh</label>
+    <div id="formula-out" class="formula-out">Chọn các thành phần ở trên để tạo prompt...</div>
+    <div class="btn-row" style="margin-top:10px">
+      <button class="btn btn-primary" onclick="copyPrompt()">📋 Copy Prompt</button>
+      <button class="btn btn-outline" onclick="resetBuilder()">🔄 Reset</button>
+    </div>
+    <div id="copy-msg" style="font-size:12px;color:var(--green);margin-top:7px;display:none">✓ Đã copy!</div>
+  </div>
+
+  <!-- QUIZ 1 -->
+  <div class="section" id="b-quiz">
+    <div class="page-title">Quiz Prompt Engineering</div>
+    <div class="page-sub">8 câu thực chiến — kiểm tra bạn đã nắm được chưa</div>
+    <div class="quiz-wrap" id="quiz1-wrap">
+      <div class="qprog-bar"><div class="qprog-fill" id="q1bar" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:12px" id="q1prog">Câu 1 / 8</div>
+      <div class="q-text" id="q1text"></div>
+      <div class="q-opts" id="q1opts"></div>
+      <div class="q-exp" id="q1exp"></div>
+      <div class="q-nav"><div style="font-size:12px;color:var(--text3)" id="q1score"></div><button class="btn btn-primary" id="q1next" onclick="nextQ1()" style="display:none">Câu tiếp →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TRACK 2: AI MINDSET & WORKFLOW
+════════════════════════════════════════════════════ -->
+<div class="track-view" id="track-mindset">
+  <nav class="topbar">
+    <button class="nav-btn active" onclick="nav2('m-home',this)">Tổng quan</button>
+    <button class="nav-btn" onclick="nav2('m-mindset',this)">AI Mindset <span class="nb">★</span></button>
+    <button class="nav-btn" onclick="nav2('m-output',this)">Output Quality <span class="nb">★</span></button>
+    <button class="nav-btn" onclick="nav2('m-workflow',this)">AI Workflow <span class="nb nb-green">★</span></button>
+    <button class="nav-btn" onclick="nav2('m-library',this)">Thư viện</button>
+    <button class="nav-btn" onclick="nav2('m-quiz',this)">Quiz <span class="nb">6 câu</span></button>
+  </nav>
+
+  <!-- HOME -->
+  <div class="section active" id="m-home">
+    <div class="hero">
+      <div class="hero-badge green">🚀 Beyond Prompting — Tư duy &amp; Hệ thống</div>
+      <h1>Dùng AI thật sự<br><em>có hệ thống</em></h1>
+      <p>Viết prompt tốt mới là bước đầu. Phần này dạy tư duy đúng, lọc output chất lượng, và xây workflow AI vào công việc hàng ngày.</p>
+      <div class="hero-targets">
+        <span class="htag">🧠 AI Mindset</span>
+        <span class="htag">✅ Output Quality</span>
+        <span class="htag">⚙️ AI Workflow</span>
+      </div>
+    </div>
+
+    <div class="sec-label">Vấn đề phổ biến sau khi học prompt</div>
+    <div class="uc-grid">
+      <div class="uc-card"><h5>😤 "AI trả lời không đúng ý"</h5><p>Bạn biết viết prompt nhưng chưa biết tinh chỉnh output → Học Output Quality</p></div>
+      <div class="uc-card"><h5>😔 "Dùng AI mà không thấy khác gì"</h5><p>Dùng lẻ tẻ, không hệ thống → Xây AI Workflow vào công việc hàng ngày</p></div>
+      <div class="uc-card"><h5>😬 "Không biết AI có đang bịa không"</h5><p>Cần AI Mindset — biết AI giỏi/dở việc gì và khi nào cần verify</p></div>
+      <div class="uc-card"><h5>😩 "Cứ phải viết lại prompt từ đầu"</h5><p>Cần thư viện prompt cá nhân. Làm một lần, tái sử dụng mãi.</p></div>
+    </div>
+
+    <div class="sec-label">5 cách bắt đầu ngay tuần tới</div>
+    <div class="card">
+      <div class="chain">
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot" style="background:var(--green-l);border-color:var(--green);color:var(--green)">1</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Thay Google bằng AI cho câu hỏi phức tạp</div><div class="ch-text">Khi cần giải thích khái niệm, tóm tắt vấn đề, brainstorm → hỏi ChatGPT/Copilot. AI trả lời theo ngữ cảnh của bạn, không phải list link.</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot" style="background:var(--green-l);border-color:var(--green);color:var(--green)">2</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Dùng AI viết nháp tất cả văn bản đầu tiên</div><div class="ch-text">Email, báo cáo, proposal — đừng bắt đầu từ tờ giấy trắng. AI viết nháp 80%, bạn chỉnh 20%. Tiết kiệm 60% thời gian.</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot" style="background:var(--green-l);border-color:var(--green);color:var(--green)">3</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Dùng AI tóm tắt trước khi đọc</div><div class="ch-text">Paste tài liệu dài vào AI, yêu cầu tóm tắt key points trong 5 câu. Đọc tóm tắt trước, đọc chi tiết nếu cần.</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot" style="background:var(--green-l);border-color:var(--green);color:var(--green)">4</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Tạo prompt template cho việc lặp lại</div><div class="ch-text">Weekly report, meeting summary, follow-up email → tạo 1 prompt template → lưu lại → dùng lại mỗi lần.</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot" style="background:var(--green-l);border-color:var(--green);color:var(--green)">5</div></div><div class="ch-body"><div class="ch-title">Dùng AI chuẩn bị mọi cuộc họp/phỏng vấn</div><div class="ch-text">"Tôi sắp phỏng vấn tại [X] cho vị trí [Y]. Hãy giúp tôi 10 câu hỏi thường gặp và gợi ý trả lời theo kinh nghiệm: [mô tả]"</div></div></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Xu hướng AI 2025–2026</div>
+    <div class="uc-grid">
+      <div class="uc-card"><h5>🤖 AI Agent</h5><p>AI không chỉ trả lời — mà tự thực hiện chuỗi việc: booking, research, report tự động</p></div>
+      <div class="uc-card"><h5>⚙️ Workflow Automation</h5><p>Quy trình business được lập trình để AI tự chạy. 92% công ty đang đầu tư AI</p></div>
+      <div class="uc-card"><h5>🎯 AI trong tuyển dụng</h5><p>54% HR dùng AI tuyển dụng. AI skill = lợi thế, không còn là bonus</p></div>
+      <div class="uc-card"><h5>📋 AI Skill = Required</h5><p>68% kỹ năng sẽ thay đổi vào 2030. Nhiều JD đã thêm "proficient in AI tools"</p></div>
+    </div>
+
+    <div class="tip tip-green"><strong>Gợi ý:</strong> Bắt đầu từ tab "AI Mindset" — đây là nền tảng trước khi học kỹ thuật. Mỗi tab có tool tương tác để thực hành ngay.</div>
+  </div>
+
+  <!-- MINDSET -->
+  <div class="section" id="m-mindset">
+    <div class="page-title">AI Mindset</div>
+    <div class="page-sub">Tư duy đúng trước khi dùng — biết AI giỏi gì, dở gì, khi nào nên tin</div>
+
+    <div class="sec-label">Ma trận: AI giỏi việc gì, dở việc gì?</div>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:12px">Tap vào từng ô để xem ví dụ thực tế</p>
+    <div class="matrix-grid">
+      <div class="matrix-cell good" onclick="showMatrix('draft')"><span class="mc-badge badge-good">AI rất giỏi</span><span class="mc-icon">✍️</span><div class="mc-title">Tạo bản nháp nhanh</div><div class="mc-desc">Email, báo cáo, đề xuất — từ ý thô thành có cấu trúc trong giây lát</div></div>
+      <div class="matrix-cell good" onclick="showMatrix('summarize')"><span class="mc-badge badge-good">AI rất giỏi</span><span class="mc-icon">📄</span><div class="mc-title">Tóm tắt & rút gọn</div><div class="mc-desc">30 trang hợp đồng → 5 điểm cần biết, giữ đúng nuance</div></div>
+      <div class="matrix-cell good" onclick="showMatrix('transform')"><span class="mc-badge badge-good">AI rất giỏi</span><span class="mc-icon">🔄</span><div class="mc-title">Biến đổi định dạng</div><div class="mc-desc">Bullet → đoạn văn, báo cáo → email, formal → casual</div></div>
+      <div class="matrix-cell good" onclick="showMatrix('brainstorm')"><span class="mc-badge badge-good">AI rất giỏi</span><span class="mc-icon">💡</span><div class="mc-title">Brainstorm không mệt</div><div class="mc-desc">20 ý tưởng, 10 góc nhìn trong vài giây, không bị anchoring</div></div>
+      <div class="matrix-cell caution" onclick="showMatrix('realtime')"><span class="mc-badge badge-caution">Cần thận trọng</span><span class="mc-icon">📡</span><div class="mc-title">Số liệu thời gian thực</div><div class="mc-desc">Dữ liệu có độ trễ, không phải live. Cần verify từ nguồn chính thức</div></div>
+      <div class="matrix-cell caution" onclick="showMatrix('math')"><span class="mc-badge badge-caution">Cần thận trọng</span><span class="mc-icon">🧮</span><div class="mc-title">Tính toán phức tạp</div><div class="mc-desc">Chuỗi tính dài có thể sai. Dùng Excel để kiểm tra</div></div>
+      <div class="matrix-cell bad" onclick="showMatrix('legal')"><span class="mc-badge badge-bad">Cần kiểm tra kỹ</span><span class="mc-icon">⚖️</span><div class="mc-title">Quyết định pháp lý</div><div class="mc-desc">AI không chịu trách nhiệm pháp lý. Chỉ dùng để tham khảo ban đầu</div></div>
+      <div class="matrix-cell bad" onclick="showMatrix('nuance')"><span class="mc-badge badge-bad">Cần kiểm tra kỹ</span><span class="mc-icon">🤝</span><div class="mc-title">Sắc thái con người</div><div class="mc-desc">Chính trị nội bộ, cảm xúc, văn hóa tổ chức — AI không hiểu được</div></div>
+    </div>
+    <div id="matrix-detail" style="display:none;background:var(--bg2);border:1px solid var(--accent);border-radius:12px;padding:16px 18px;margin-bottom:18px"><div id="matrix-detail-content"></div></div>
+
+    <div class="sec-label">4 câu hỏi trước khi giao việc cho AI</div>
+    <div class="card">
+      <div class="chain">
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot" style="background:var(--blue-l);border-color:var(--blue);color:var(--blue)">1</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Tôi có thể đánh giá kết quả này không?</div><div class="ch-text">Nếu không đủ kiến thức để biết AI đúng hay sai → Dùng tham khảo, verify nguồn gốc.</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot" style="background:var(--amber-l);border-color:var(--amber);color:var(--amber)">2</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Thông tin này có nhạy cảm không?</div><div class="ch-text">Thông tin khách hàng, số liệu nội bộ → Thay bằng dữ liệu giả định cùng cấu trúc.</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot" style="background:var(--teal-l);border-color:var(--teal);color:var(--teal)">3</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Tôi cần bản nháp hay câu trả lời cuối cùng?</div><div class="ch-text">AI tốt nhất ở bản nháp. Câu trả lời cuối luôn cần bạn review và chịu trách nhiệm.</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot" style="background:var(--red-l);border-color:var(--red);color:var(--red)">4</div></div><div class="ch-body"><div class="ch-title">Nếu AI sai, hậu quả là gì?</div><div class="ch-text"><strong>Thấp</strong> (email nội bộ, brainstorm) → Dùng thoải mái.<br><strong>Cao</strong> (hợp đồng, số liệu tài chính) → Kiểm tra cực kỹ.</div></div></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Tool: Nên dùng AI theo chế độ nào?</div>
+    <div class="decision-wrap">
+      <div class="dw-hdr"><div class="dw-dot"></div>Decision Tool — Chọn chế độ làm việc với AI</div>
+      <div class="dw-body">
+        <div class="dq-text" id="dq-text">Bạn đang làm loại tác vụ nào?</div>
+        <div class="dq-opts" id="dq-opts"></div>
+        <div id="dq-result" style="display:none"></div>
+        <button class="btn btn-outline" style="margin-top:12px;font-size:12px" onclick="resetDecision()">↺ Thử lại</button>
+      </div>
+    </div>
+
+    <div class="sec-label">3 chế độ làm việc</div>
+    <div class="uc-grid">
+      <div class="uc-card" style="border-left:3px solid var(--green)"><h5>⚡ AI làm, tôi review</h5><p>Tác vụ rõ, hậu quả thấp.<br><strong style="color:var(--green-d)">VD:</strong> Email, caption, tóm tắt tài liệu</p></div>
+      <div class="uc-card" style="border-left:3px solid var(--blue)"><h5>🤝 AI gợi ý, tôi quyết</h5><p>Vấn đề phức tạp, cần brainstorm.<br><strong style="color:var(--blue)">VD:</strong> Lên chiến lược, đánh giá rủi ro</p></div>
+      <div class="uc-card" style="border-left:3px solid var(--amber)"><h5>🔍 Tôi dẫn, AI hỗ trợ</h5><p>Cần kiểm soát từng chi tiết.<br><strong style="color:var(--amber)">VD:</strong> Hợp đồng, số liệu tài chính quan trọng</p></div>
+    </div>
+    <div class="tip tip-amber"><strong>Nguyên tắc vàng:</strong> AI giống thực tập sinh thông minh — học nhanh, làm nhanh, nhưng cần bạn review trước khi submit.</div>
+  </div>
+
+  <!-- OUTPUT QUALITY -->
+  <div class="section" id="m-output">
+    <div class="page-title">Output Quality</div>
+    <div class="page-sub">Đừng copy output đầu tiên — biết cách đánh giá và tinh chỉnh cho đến khi thực sự tốt</div>
+    <div class="cmp">
+      <div class="cmp-box cmp-bad"><div class="cmp-label">❌ Vòng lặp tệ</div><div class="cmp-text">Prompt → output chưa ý
+→ Xóa tab → viết lại từ đầu
+→ Vẫn chưa ý → Bỏ cuộc</div></div>
+      <div class="cmp-box cmp-good"><div class="cmp-label">✓ Vòng lặp đúng</div><div class="cmp-text">Prompt → output
+→ Đánh giá: Đúng? Đủ? Phù hợp?
+→ Lệnh tinh chỉnh cụ thể (10 giây)
+→ Lặp 2-3 vòng → Kết quả dùng được</div></div>
+    </div>
+
+    <div class="sec-label">Tool: Đánh giá và tinh chỉnh output</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:16px 0">
+      <div style="padding:12px 18px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:13px;font-weight:700">🔬 Output Quality Rater — Chọn ví dụ và thực hành</div>
+      <div style="padding:18px">
+        <div class="subtabs">
+          <button class="stab active" onclick="loadSample('email',this)">Email xin lỗi</button>
+          <button class="stab" onclick="loadSample('report',this)">Báo cáo tóm tắt</button>
+          <button class="stab" onclick="loadSample('caption',this)">Caption MXH</button>
+        </div>
+        <div class="ilabel">Output AI vừa tạo ra (bản đầu tiên)</div>
+        <div class="output-sample" id="output-sample-text"></div>
+        <div class="ilabel">Đánh giá theo 3 tiêu chí — tap để chọn</div>
+        <div class="criteria-grid">
+          <div class="crit-card" id="crit-accurate" onclick="toggleCrit('accurate')"><span class="crit-icon">✓</span><div class="crit-name">Đúng không?</div><div class="crit-q">Thông tin chính xác? Cần fact-check?</div></div>
+          <div class="crit-card" id="crit-complete" onclick="toggleCrit('complete')"><span class="crit-icon">📋</span><div class="crit-name">Đủ không?</div><div class="crit-q">Có thiếu ý quan trọng?</div></div>
+          <div class="crit-card" id="crit-fit" onclick="toggleCrit('fit')"><span class="crit-icon">🎯</span><div class="crit-name">Phù hợp không?</div><div class="crit-q">Giọng, độ dài, cấu trúc đúng chưa?</div></div>
+        </div>
+        <div class="refine-area" id="refine-area">
+          <div class="ilabel">Chọn lệnh tinh chỉnh (có thể chọn nhiều)</div>
+          <div class="cmd-pills" id="cmd-pills"></div>
+          <div id="final-prompt-wrap" style="display:none">
+            <div class="ilabel" style="margin-top:14px">Lệnh follow-up gửi cho AI</div>
+            <div class="final-prompt" id="final-prompt-text"></div>
+            <button class="copy-btn" onclick="copyFinalPrompt()">📋 Copy lệnh này</button>
+            <span id="copy-ok" style="font-size:11px;color:var(--green);margin-left:9px;display:none">✓ Đã copy!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label">Bộ lệnh tinh chỉnh — copy và dùng ngay</div>
+    <div class="subtabs" id="refine-tabs">
+      <button class="stab active" onclick="showRefTab('rlength',this)">Độ dài</button>
+      <button class="stab" onclick="showRefTab('rtone',this)">Giọng văn</button>
+      <button class="stab" onclick="showRefTab('rstruct',this)">Cấu trúc</button>
+      <button class="stab" onclick="showRefTab('rcontent',this)">Nội dung</button>
+      <button class="stab" onclick="showRefTab('raccuracy',this)">Độ chính xác</button>
+    </div>
+    <div class="stab-content active" id="rlength"><div class="code-wrap"><div class="code">"Rút gọn xuống còn [100] từ, giữ nguyên các ý chính."
+"Bỏ phần [X], tập trung vào 3 điểm quan trọng nhất."
+"Mở rộng phần [X] thêm 2-3 câu, cụ thể hơn với ví dụ."</div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div>
+    <div class="stab-content" id="rtone"><div class="code-wrap"><div class="code">"Viết lại theo giọng thân thiện hơn — như email đồng nghiệp."
+"Chuyên nghiệp hóa — sẽ gửi cho đối tác nước ngoài."
+"Thêm sự đồng cảm vào đầu — khách hàng đang bực bội."</div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div>
+    <div class="stab-content" id="rstruct"><div class="code-wrap"><div class="code">"Tổ chức thành 3 phần rõ: Vấn đề / Giải pháp / Hành động."
+"Chuyển từ đoạn văn sang bullet points để dễ scan."
+"Đưa kết luận lên đầu — người đọc bận, đọc từ trên xuống."</div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div>
+    <div class="stab-content" id="rcontent"><div class="code-wrap"><div class="code">"Thêm 2 ví dụ cụ thể cho luận điểm thứ hai."
+"Thiếu phần rủi ro — thêm 2-3 điểm cần lưu ý."
+"Bỏ tất cả buzzword (synergy, leverage...) — dùng từ thường."</div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div>
+    <div class="stab-content" id="raccuracy"><div class="code-wrap"><div class="code">"Số liệu này sai — đúng là [X]. Viết lại với thông tin đúng."
+"Ghi [CẦN VERIFY] bên cạnh mọi số liệu cụ thể trong bài."
+"Đoạn này giả định [X] nhưng thực tế [Y] — điều chỉnh lại."</div><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div></div>
+
+    <div class="tip tip-green" style="margin-top:16px"><strong>Quy tắc 3 vòng:</strong> Sau 3 vòng tinh chỉnh vẫn chưa tốt → vấn đề thường nằm ở prompt gốc. Bắt đầu lại với prompt tốt hơn.</div>
+  </div>
+
+  <!-- WORKFLOW -->
+  <div class="section" id="m-workflow">
+    <div class="page-title">AI Workflow</div>
+    <div class="page-sub">Dùng AI có hệ thống — không phải thỉnh thoảng nhớ ra mới dùng</div>
+
+    <div class="sec-label">Before vs After AI — Báo cáo tuần Marketing</div>
+    <div class="cmp">
+      <div class="cmp-box cmp-bad">
+        <div class="cmp-label">BEFORE AI — 3 giờ+</div>
+        <div class="cmp-text">1. Thu thập data từ 4–5 nguồn (45')
+2. Copy-paste Excel, tính tay (30')
+3. Viết nháp báo cáo từ đầu (45')
+4. Tìm insight — khó nhìn pattern (30')
+5. Format, làm đẹp, gửi manager (30')</div>
+      </div>
+      <div class="cmp-box cmp-good">
+        <div class="cmp-label">AFTER AI — ~40 phút</div>
+        <div class="cmp-text">1. Copilot Excel: phân tích + chart (10')
+2. AI viết nháp từ data sẵn có (10')
+3. Bạn review & thêm insight thực tế (15')
+4. Format + gửi tự động (5')
+
+→ Tiết kiệm 2h20'/tuần = 10 giờ/tháng</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Microsoft 365 Copilot — Bản đồ ứng dụng</div>
+    <div class="tip tip-blue" style="margin-bottom:10px"><strong>Forrester 2025:</strong> Người dùng M365 Copilot tiết kiệm trung bình 9 giờ/tháng. AI đã tích hợp vào công cụ bạn dùng hàng ngày.</div>
+    <div class="uc-grid">
+      <div class="uc-card"><h5>📧 Outlook</h5><p>Tóm tắt email, soạn reply, phân loại ưu tiên<br><em style="color:var(--text3)">CEO, Sales, HR</em></p></div>
+      <div class="uc-card"><h5>👥 Teams</h5><p>Tóm tắt họp, action items, transcript tự động<br><em style="color:var(--text3)">Manager, Project Lead</em></p></div>
+      <div class="uc-card"><h5>📝 Word</h5><p>Viết nháp, tóm tắt tài liệu, tạo outline, rewrite<br><em style="color:var(--text3)">Marketing, HR, Ops</em></p></div>
+      <div class="uc-card"><h5>📊 Excel</h5><p>Phân tích data, tạo chart, tóm tắt insight<br><em style="color:var(--text3)">Finance, HR, Marketing</em></p></div>
+      <div class="uc-card"><h5>📽️ PowerPoint</h5><p>Slide từ outline, layout, speaker notes<br><em style="color:var(--text3)">All roles</em></p></div>
+      <div class="uc-card"><h5>💬 Copilot Chat</h5><p>Chat tự do, tổng hợp từ nhiều nguồn M365<br><em style="color:var(--text3)">All roles</em></p></div>
+    </div>
+
+    <div class="sec-label">3 bước xây AI Workflow cá nhân</div>
+    <div class="card">
+      <div class="chain">
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot">1</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Kiểm kê — tìm "điểm đau"</div><div class="ch-text">Liệt kê 10 việc thường xuyên nhất. Đánh dấu: 🔴 Tốn thời gian nhưng không cần sáng tạo | 🟡 Lặp đi lặp lại, format giống nhau. Nhóm 🔴🟡 là ứng viên đầu tiên.</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot">2</div><div class="ch-con"></div></div><div class="ch-body"><div class="ch-title">Xây thư viện prompt cá nhân</div><div class="ch-text">Mỗi khi tìm được prompt tốt → lưu vào Google Doc/Notion. Ghi rõ: tên tác vụ, prompt đầy đủ, tool dùng, lưu ý. Sau 1-2 tháng: 20-30 prompt cá nhân hóa — đây là tài sản riêng của bạn.</div></div></div>
+        <div class="ch-step"><div class="ch-line"><div class="ch-dot">3</div></div><div class="ch-body"><div class="ch-title">Tạo "trigger" — thói quen gọi AI tự động</div><div class="ch-text">Thiết lập: <em>khi X xảy ra → mở AI và làm Y</em>. Dùng builder bên dưới để thiết kế workflow ngày của bạn.</div></div></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Builder: Thiết kế ngày làm việc với AI</div>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:12px">Tap ô trống để thêm AI action. Tap ô đã có để xóa.</p>
+    <div class="workflow-canvas">
+      <div class="wf-day"><div class="wf-day-title">Buổi sáng</div><div class="wf-slots">
+        <div class="wf-slot" data-slot="s1" onclick="pickSlot('s1')"><span style="font-size:10px;color:var(--text3);margin-right:auto">7:30</span><span>+ Thêm action</span></div>
+        <div class="wf-slot" data-slot="s2" onclick="pickSlot('s2')"><span style="font-size:10px;color:var(--text3);margin-right:auto">9:00</span><span>+ Thêm action</span></div>
+        <div class="wf-slot" data-slot="s3" onclick="pickSlot('s3')"><span style="font-size:10px;color:var(--text3);margin-right:auto">10:30</span><span>+ Thêm action</span></div>
+      </div></div>
+      <div class="wf-day"><div class="wf-day-title">Buổi chiều</div><div class="wf-slots">
+        <div class="wf-slot" data-slot="s4" onclick="pickSlot('s4')"><span style="font-size:10px;color:var(--text3);margin-right:auto">13:00</span><span>+ Thêm action</span></div>
+        <div class="wf-slot" data-slot="s5" onclick="pickSlot('s5')"><span style="font-size:10px;color:var(--text3);margin-right:auto">15:00</span><span>+ Thêm action</span></div>
+        <div class="wf-slot" data-slot="s6" onclick="pickSlot('s6')"><span style="font-size:10px;color:var(--text3);margin-right:auto">16:30</span><span>+ Thêm action</span></div>
+      </div></div>
+      <div class="action-picker" id="action-picker"><div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">Chọn AI action</div><div class="ap-grid" id="ap-grid"></div></div>
+      <div class="wf-savings" id="wf-savings" style="display:none">
+        <div><div class="wf-savings-n" id="wf-savings-n">0 phút</div><div class="wf-savings-label">tiết kiệm mỗi ngày</div></div>
+        <div style="font-size:11px;color:var(--green-d)">= <span id="wf-savings-week">0</span> tiếng/tuần · <span id="wf-savings-month">0</span> tiếng/tháng</div>
+      </div>
+    </div>
+
+    <div class="sec-label">4 lỗi workflow phổ biến nhất</div>
+    <div class="acc open"><div class="acc-hdr" onclick="toggleAcc(this)">❌ Dùng AI cho mọi thứ, kể cả việc không cần <span class="acc-arrow">▼</span></div><div class="acc-body">Tin nhắn Slack 1 câu mà cũng mở AI → tốn thêm 2 phút. Nguyên tắc: AI xứng đáng khi tác vụ mất hơn 5-10 phút làm thủ công.</div></div>
+    <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">❌ Không lưu prompt — làm lại từ đầu mỗi lần <span class="acc-arrow">▼</span></div><div class="acc-body">Lần đầu mất 10 phút tìm prompt tốt. Lần sau cũng mất 10 phút. Nếu lưu: lần sau mất 10 giây. Bắt đầu thư viện ngay hôm nay — dù chỉ 1 prompt.</div></div>
+    <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">❌ Kỳ vọng output hoàn hảo ngay lần đầu <span class="acc-arrow">▼</span></div><div class="acc-body">Dùng 1 lần chưa tốt → "AI không làm được việc này". Thực ra cần 2-3 vòng tinh chỉnh. Xem tab Output Quality.</div></div>
+    <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)">❌ Copy output AI mà không review <span class="acc-arrow">▼</span></div><div class="acc-body">AI đôi khi tạo thông tin trông hợp lý nhưng sai (hallucination). Quy tắc: mọi output AI đều phải qua mắt bạn trước khi submit.</div></div>
+  </div>
+
+  <!-- LIBRARY -->
+  <div class="section" id="m-library">
+    <div class="page-title">Thư viện lệnh tinh chỉnh</div>
+    <div class="page-sub">Các lệnh follow-up dùng ngay sau khi nhận output đầu tiên — copy và paste trực tiếp</div>
+    <div id="lib-grid"></div>
+    <hr class="div">
+    <div class="sec-label">Prompt trigger hàng ngày</div>
+    <div id="trigger-grid"></div>
+    <div class="tip tip-blue" style="margin-top:16px"><strong>Xây thư viện cá nhân:</strong> Mỗi khi tìm được lệnh tinh chỉnh hiệu quả → lưu vào Google Doc. Sau 1 tháng bạn có bộ lệnh riêng cho đúng công việc của mình.</div>
+  </div>
+
+  <!-- QUIZ 2 -->
+  <div class="section" id="m-quiz">
+    <div class="page-title">Quiz AI Mindset & Workflow</div>
+    <div class="page-sub">6 câu thực chiến về tư duy, output quality và workflow</div>
+    <div class="quiz-wrap" id="quiz2-wrap">
+      <div class="qprog-bar"><div class="qprog-fill" id="q2bar" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:12px" id="q2prog">Câu 1 / 6</div>
+      <div class="q-text" id="q2text"></div>
+      <div class="q-opts" id="q2opts"></div>
+      <div class="q-exp" id="q2exp"></div>
+      <div class="q-nav"><div style="font-size:12px;color:var(--text3)" id="q2score"></div><button class="btn btn-green" id="q2next" onclick="nextQ2()" style="display:none">Câu tiếp →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- SITE FOOTER -->
+<footer class="site-footer">
+  <div class="footer-logos">
+    <div class="footer-logo-item"><img src="microsoft.webp" alt="Microsoft" style="height:18px;object-fit:contain"> Microsoft</div>
+    <div class="footer-divider"></div>
+    <div class="footer-logo-item"><img src="Logo-Datapot-transparent-1024x336.png.webp" alt="Datapot" style="height:20px;object-fit:contain"> Datapot</div>
+  </div>
+  <div class="footer-campaign">AI Credentials Accelerator Series</div>
+  <div class="footer-gift">
+    <div class="footer-gift-label">Quà tặng dành cho khách mời webinar</div>
+    <div class="footer-gift-text">
+      Trang này được tạo riêng như món quà chia sẻ kiến thức từ diễn giả.<br>
+      Hãy bookmark lại và quay lại bất cứ lúc nào bạn cần!
+    </div>
+  </div>
+  <div class="footer-speaker">
+    Prepared with &#10084; by <a href="#">thuatnh</a> &mdash; GenAI for Business Teams<br>
+    <span style="font-size:11px">Microsoft AI Credentials Accelerator &bull; Datapot &bull; 2025</span>
+  </div>
+</footer>
+
+<script>
+/* ── TRACK SWITCH ── */
+function switchTrack(t){
+  document.querySelectorAll('.track-view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
+  document.getElementById('track-'+t).classList.add('active');
+  document.getElementById('pill-'+t).classList.add('active');
+}
+
+/* ── NAV ── */
+function nav1(id,btn){
+  document.querySelectorAll('#track-business .section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('#track-business .nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');btn.classList.add('active');
+}
+function nav2(id,btn){
+  document.querySelectorAll('#track-mindset .section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('#track-mindset .nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');btn.classList.add('active');
+}
+
+/* ── ACCORDION ── */
+function toggleAcc(hdr){hdr.closest('.acc').classList.toggle('open');}
+
+/* ── COPY CODE ── */
+function copyCode(btn){
+  const code=btn.previousElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    const orig=btn.textContent;btn.textContent='✓ Copied!';btn.style.color='var(--green)';
+    setTimeout(()=>{btn.textContent=orig;btn.style.color='';},2000);
+  });
+}
+
+/* ── TECH TABS ── */
+function showTech(id,btn){
+  document.querySelectorAll('.tech-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tech-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');document.getElementById('tech-'+id).classList.add('active');
+}
+
+/* ── CAREER ── */
+function showCareer(id,btn){
+  document.querySelectorAll('.career-card').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.career-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');document.getElementById('career-'+id).classList.add('active');
+}
+
+/* ── SUBTABS ── */
+function showRefTab(id,btn){
+  document.querySelectorAll('#refine-tabs .stab').forEach(b=>b.classList.remove('active'));
+  ['rlength','rtone','rstruct','rcontent','raccuracy'].forEach(x=>{const el=document.getElementById(x);if(el)el.classList.remove('active');});
+  btn.classList.add('active');const el=document.getElementById(id);if(el)el.classList.add('active');
+}
+
+/* ── BUILDER ── */
+function buildPrompt(){
+  const role=document.getElementById('sel-role').value;
+  const task=document.getElementById('sel-task').value;
+  const fmt=document.getElementById('sel-format').value;
+  const tech=document.getElementById('sel-tech').value;
+  const content=document.getElementById('user-content').value.trim();
+  let parts=[];
+  if(role)parts.push(role);
+  if(tech)parts.push('\n'+tech);
+  parts.push('\n'+task+':');
+  if(content)parts.push('\n'+content);
+  parts.push('\n\n'+fmt+'.');
+  document.getElementById('formula-out').textContent=parts.join(' ');
+}
+function copyPrompt(){
+  const t=document.getElementById('formula-out').textContent;
+  navigator.clipboard.writeText(t).then(()=>{
+    const m=document.getElementById('copy-msg');m.style.display='block';
+    setTimeout(()=>m.style.display='none',2500);
+  });
+}
+function resetBuilder(){
+  ['sel-role','sel-task','sel-format','sel-tech'].forEach(id=>document.getElementById(id).selectedIndex=0);
+  document.getElementById('user-content').value='';
+  document.getElementById('formula-out').textContent='Chọn các thành phần ở trên để tạo prompt...';
+}
+
+/* ── MATRIX ── */
+const MD={
+  draft:{title:'Tạo bản nháp nhanh',status:'good',example:'Email phúc đáp mất 30 phút → AI tạo bản nháp 10 giây, bạn chỉnh 5 phút.',why:'AI học từ hàng triệu văn bản. Nó biết cấu trúc, ngôn ngữ, format chuẩn.',tip:'Dùng Chế độ 1: AI làm, bạn review. Tốc độ là lợi thế lớn nhất.'},
+  summarize:{title:'Tóm tắt & rút gọn',status:'good',example:'Hợp đồng 30 trang → 5 điều khoản quan trọng nhất trong 20 giây.',why:'AI đọc và xử lý văn bản dài mà không mệt. Mạnh với văn bản có cấu trúc rõ.',tip:'Với tài liệu nhạy cảm: thay tên/số liệu thật bằng placeholder trước khi paste.'},
+  transform:{title:'Biến đổi định dạng',status:'good',example:'Bullet → đoạn văn. Báo cáo kỹ thuật → email cho sếp không chuyên.',why:'AI giữ nội dung nguyên vẹn trong khi thay đổi cách trình bày.',tip:'Luôn chỉ định target audience — "viết cho người không có nền kỹ thuật" cho kết quả tốt hơn.'},
+  brainstorm:{title:'Brainstorm không mệt',status:'good',example:'10 ý tưởng tên sản phẩm → AI đưa ra 20 trong 5 giây.',why:'AI không bị anchoring bias. Generate nhiều lựa chọn nhanh, bạn chọn tốt nhất.',tip:'Hỏi thêm: "cho tôi 10 ý nữa khác hoàn toàn" — thường ra ý bất ngờ hơn.'},
+  realtime:{title:'Số liệu thời gian thực',status:'caution',example:'Hỏi giá cổ phiếu hôm nay → AI có thể đưa ra số liệu cũ vài tháng.',why:'Dữ liệu training của AI có cutoff date — không biết chuyện xảy ra sau đó.',tip:'Dùng Gemini/Copilot Chat có search web. Luôn verify từ nguồn chính thức.'},
+  math:{title:'Tính toán phức tạp',status:'caution',example:'Chuỗi tính 10 bước → AI có thể sai ở bước 4-5 mà không báo lỗi.',why:'AI "nghĩ" bằng ngôn ngữ, không phải tính toán thuần túy. Lỗi tích lũy theo chuỗi dài.',tip:'Dùng AI để setup công thức và logic → paste vào Excel để tính.'},
+  legal:{title:'Quyết định pháp lý',status:'bad',example:'Ký hợp đồng dựa 100% vào phân tích AI mà không qua luật sư.',why:'AI không chịu trách nhiệm pháp lý. Có thể bỏ sót điều khoản quan trọng.',tip:'Dùng AI để hiểu sơ bộ → sau đó consult chuyên gia. AI là trợ lý chuẩn bị, không phải người quyết định.'},
+  nuance:{title:'Sắc thái con người',status:'bad',example:'Nhờ AI quyết định có nên raise vấn đề với sếp trong cuộc họp không.',why:'AI không có context về politics nội bộ, lịch sử quan hệ, cảm xúc thực sự.',tip:'Dùng AI để chuẩn bị options → bạn quyết định dựa trên context AI không biết.'}
+};
+function showMatrix(key){
+  const d=MD[key];const c={good:'var(--green)',caution:'var(--amber)',bad:'var(--red)'};const l={good:'AI rất giỏi',caution:'Cần thận trọng',bad:'Cần kiểm tra kỹ'};
+  document.getElementById('matrix-detail-content').innerHTML=`
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:10px"><span style="font-size:13px;font-weight:700;color:${c[d.status]}">${l[d.status]}</span><span style="font-size:13px;font-weight:600;color:var(--text)">— ${d.title}</span></div>
+    <div style="margin-bottom:8px"><span style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px">Ví dụ</span><div style="font-size:13px;color:var(--text2);margin-top:3px;line-height:1.65">${d.example}</div></div>
+    <div style="margin-bottom:8px"><span style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px">Tại sao</span><div style="font-size:13px;color:var(--text2);margin-top:3px;line-height:1.65">${d.why}</div></div>
+    <div style="background:var(--bg3);border-radius:8px;padding:9px 13px;font-size:13px;color:var(--text2);line-height:1.65"><strong style="color:var(--accent)">Gợi ý:</strong> ${d.tip}</div>`;
+  document.getElementById('matrix-detail').style.display='block';
+}
+
+/* ── DECISION TOOL ── */
+const DEXTRA={
+  draft:{q:'Nếu output AI sai, hậu quả thế nào?',opts:[{t:'Thấp — email nội bộ, draft nháp',r:'draft_low'},{t:'Cao — gửi cho khách hàng, ban lãnh đạo',r:'draft_high'}]},
+  analysis:{q:'Quyết định có hậu quả tài chính/pháp lý không?',opts:[{t:'Không — phân tích nội bộ, tham khảo',r:'analysis_low'},{t:'Có — đầu tư, ký hợp đồng',r:'analysis_high'}]},
+  research:{q:'Thông tin cần tính thời gian thực không?',opts:[{t:'Không — kiến thức nền, khái niệm chung',r:'research_general'},{t:'Có — số liệu mới nhất, tin tức gần đây',r:'research_realtime'}]}
+};
+const DRESULTS={
+  draft_low:{mode:'⚡ Chế độ 1',title:'AI làm, bạn review nhanh',color:'res-go',detail:'Email nội bộ, draft nháp → Giao cho AI, review 2 phút, gửi. Use case lý tưởng nhất.',tip:'Tiết kiệm 70-80% thời gian soạn thảo.'},
+  draft_high:{mode:'🤝 Chế độ 1+',title:'AI làm, bạn review kỹ',color:'res-caution',detail:'Output AI là bản nháp tốt, nhưng cần review kỹ — kiểm tra số liệu, tone, thông tin nhạy cảm.',tip:'Checklist: Thông tin đúng? Tone phù hợp? Có gì cần xóa vì nhạy cảm?'},
+  analysis_low:{mode:'🤝 Chế độ 2',title:'AI gợi ý, bạn quyết',color:'res-caution',detail:'AI cung cấp framework, góc nhìn đa chiều. Bạn weight theo context nội bộ.',tip:'Hỏi: "Phân tích theo 3 scenario: optimistic/pessimistic/realistic"'},
+  analysis_high:{mode:'🔍 Chế độ 3',title:'Bạn dẫn dắt, AI hỗ trợ',color:'res-no',detail:'Quyết định tài chính/pháp lý → AI chỉ là công cụ chuẩn bị. Consult chuyên gia trước khi quyết định.',tip:'Dùng AI để chuẩn bị câu hỏi cho luật sư/tư vấn tài chính.'},
+  research_general:{mode:'⚡ Chế độ 1',title:'AI làm, review nhanh',color:'res-go',detail:'Kiến thức nền ổn định → AI cho overview tốt, spot-check là đủ.',tip:'Claude đặc biệt tốt — context window lớn, phân tích sâu.'},
+  research_realtime:{mode:'⚠️ Cần search web',title:'Dùng AI có search + verify',color:'res-caution',detail:'Số liệu mới nhất không có trong training data AI. Dùng Gemini/Copilot Chat.',tip:'Verify mọi số liệu từ nguồn gốc. AI có thể sai về dữ liệu sau cutoff date.'}
+};
+function initDecision(){
+  document.getElementById('dq-text').textContent='Bạn đang làm loại tác vụ nào?';
+  document.getElementById('dq-result').style.display='none';
+  const c=document.getElementById('dq-opts');c.innerHTML='';
+  [{t:'Soạn thảo (email, báo cáo, content)',r:'draft'},{t:'Phân tích & ra quyết định',r:'analysis'},{t:'Nghiên cứu & tổng hợp thông tin',r:'research'}].forEach(o=>{
+    const b=document.createElement('button');b.className='dq-opt';
+    b.innerHTML=`<span style="font-size:14px">→</span>${o.t}`;
+    b.onclick=()=>selectDQ(o.r);c.appendChild(b);
+  });
+}
+function selectDQ(r){
+  if(DEXTRA[r]){
+    const q=DEXTRA[r];document.getElementById('dq-text').textContent=q.q;
+    const c=document.getElementById('dq-opts');c.innerHTML='';
+    q.opts.forEach(o=>{const b=document.createElement('button');b.className='dq-opt';b.innerHTML=`<span style="font-size:14px">→</span>${o.t}`;b.onclick=()=>selectDQ(o.r);c.appendChild(b);});return;
+  }
+  if(DRESULTS[r]){
+    const res=DRESULTS[r];document.getElementById('dq-opts').innerHTML='';document.getElementById('dq-text').textContent='';
+    const el=document.getElementById('dq-result');
+    el.innerHTML=`<div class="dq-result ${res.color}"><div class="res-title">${res.mode} — ${res.title}</div><div style="margin-bottom:7px">${res.detail}</div><div style="background:rgba(255,255,255,.6);border-radius:8px;padding:7px 11px;font-size:12px"><strong>Tip:</strong> ${res.tip}</div></div>`;
+    el.style.display='block';
+  }
+}
+function resetDecision(){initDecision();}
+
+/* ── OUTPUT RATER ── */
+const SAMPLES={
+  email:{text:`Kính gửi Quý khách,\n\nChúng tôi xin lỗi về sự chậm trễ trong giao hàng. Đây là điều không mong muốn và rất tiếc vì điều này ảnh hưởng đến kế hoạch của bạn.\n\nChúng tôi cam kết sẽ cố gắng hơn trong tương lai.\n\nTrân trọng, Team CSKH`,issues:{accurate:'ok',complete:'bad',fit:'bad'},
+   refine:{complete:['Thêm: lý do cụ thể gây chậm trễ','Thêm: giải pháp bồi thường cụ thể','Thêm: deadline giao hàng mới'],fit:['Chuyên nghiệp hóa toàn bộ','Thêm CTA cụ thể cuối email','Bớt câu xin lỗi chung, thêm hành động thực tế']}},
+  report:{text:`Kết quả tháng này tốt. Doanh thu tăng so với tháng trước. Team đã làm việc chăm chỉ và đạt nhiều mục tiêu. Một số thách thức vẫn còn. Tháng tới sẽ cố gắng.`,issues:{accurate:'caution',complete:'bad',fit:'bad'},
+   refine:{accurate:['Ghi [CẦN VERIFY] cạnh mọi số liệu','Thêm con số % cụ thể vào mọi tuyên bố'],complete:['Thêm % tăng trưởng doanh thu','Thêm: thách thức cụ thể là gì','Thêm action items cho tháng tới'],fit:['Thêm heading cho từng phần','Chuyên nghiệp hóa — đây là báo cáo management']}},
+  caption:{text:`Uống nước này đi mọi người! Rất ngon và tốt cho sức khỏe. Mua ngay hôm nay nhé! #nuocuong #suckhoe`,issues:{accurate:'ok',complete:'caution',fit:'bad'},
+   refine:{complete:['Thêm USP cụ thể của sản phẩm','Thêm: mua ở đâu, giá bao nhiêu'],fit:['Thêm storytelling vào mở đầu','Viết lại hook — câu đầu quá nhạt','Thêm 8-10 hashtag mix tiếng Việt và Anh']}}
+};
+let curSample='email',critState={accurate:null,complete:null,fit:null},selCmds=[];
+function loadSample(key,btn){
+  curSample=key;critState={accurate:null,complete:null,fit:null};selCmds=[];
+  if(btn){document.querySelectorAll('.rater-wrap .stab, .subtabs .stab').forEach(b=>{if(b.closest('.rater-wrap')||b.closest('#m-output'))b.classList.remove('active')});if(btn)btn.classList.add('active');}
+  document.getElementById('output-sample-text').textContent=SAMPLES[key].text;
+  ['accurate','complete','fit'].forEach(c=>{document.getElementById('crit-'+c).classList.remove('active-good','active-bad');});
+  document.getElementById('refine-area').classList.remove('show');
+  document.getElementById('final-prompt-wrap').style.display='none';
+  document.getElementById('cmd-pills').innerHTML='';
+}
+function toggleCrit(key){
+  const state=SAMPLES[curSample].issues[key];const el=document.getElementById('crit-'+key);
+  if(critState[key]!==null)return;critState[key]=state;
+  el.classList.add(state==='ok'?'active-good':'active-bad');showRefineSuggestions();
+}
+function showRefineSuggestions(){
+  const s=SAMPLES[curSample];document.getElementById('refine-area').classList.add('show');
+  const pills=document.getElementById('cmd-pills');pills.innerHTML='';selCmds=[];
+  let all=[];Object.keys(critState).forEach(k=>{if(critState[k]&&critState[k]!=='ok'){all=all.concat(s.refine[k]||[]);}});
+  if(!all.length){pills.innerHTML='<span style="font-size:12px;color:var(--green-d)">✓ Output này đã tốt!</span>';return;}
+  all.forEach(cmd=>{
+    const p=document.createElement('button');p.className='cmd-pill';p.textContent=cmd;
+    p.onclick=()=>{p.classList.toggle('selected');selCmds=p.classList.contains('selected')?[...selCmds,cmd]:selCmds.filter(c=>c!==cmd);updateFinalPrompt();};
+    pills.appendChild(p);
+  });
+}
+function updateFinalPrompt(){
+  if(!selCmds.length){document.getElementById('final-prompt-wrap').style.display='none';return;}
+  document.getElementById('final-prompt-text').textContent=selCmds.join('\n');
+  document.getElementById('final-prompt-wrap').style.display='block';
+}
+function copyFinalPrompt(){
+  navigator.clipboard.writeText(document.getElementById('final-prompt-text').textContent).then(()=>{
+    const ok=document.getElementById('copy-ok');ok.style.display='inline';setTimeout(()=>ok.style.display='none',2000);
+  });
+}
+
+/* ── WORKFLOW BUILDER ── */
+const AI_ACTIONS=[
+  {name:'Tóm tắt inbox',icon:'📬',tool:'Claude/ChatGPT',save:15},{name:'Ưu tiên task',icon:'📋',tool:'ChatGPT',save:10},
+  {name:'Viết báo cáo',icon:'📝',tool:'Claude',save:45},{name:'Tóm tắt họp',icon:'🎙️',tool:'Copilot',save:25},
+  {name:'Soạn email',icon:'✉️',tool:'Claude',save:20},{name:'Research nhanh',icon:'🔍',tool:'Gemini',save:30},
+  {name:'Review tài liệu',icon:'📄',tool:'Claude',save:20},{name:'Lên agenda',icon:'📅',tool:'ChatGPT',save:10},
+];
+const SLOT_TIMES={s1:'7:30',s2:'9:00',s3:'10:30',s4:'13:00',s5:'15:00',s6:'16:30'};
+let slotData={},activeSlot=null;
+function pickSlot(slotId){
+  const el=document.querySelector(`[data-slot="${slotId}"]`);
+  if(el.classList.contains('filled')){
+    delete slotData[slotId];el.classList.remove('filled');
+    el.innerHTML=`<span style="font-size:10px;color:var(--text3);margin-right:auto">${SLOT_TIMES[slotId]}</span><span>+ Thêm action</span>`;
+    updateSavings();document.getElementById('action-picker').classList.remove('show');return;
+  }
+  activeSlot=slotId;const picker=document.getElementById('action-picker');picker.classList.add('show');
+  const grid=document.getElementById('ap-grid');grid.innerHTML='';
+  AI_ACTIONS.forEach(a=>{
+    const d=document.createElement('div');d.className='ap-item';
+    d.innerHTML=`<div class="ap-item-icon">${a.icon}</div><div class="ap-item-name">${a.name}</div><div class="ap-item-tool">${a.tool} · ~${a.save}p</div>`;
+    d.onclick=()=>assignAction(slotId,a);grid.appendChild(d);
+  });
+}
+function assignAction(slotId,action){
+  slotData[slotId]=action;const el=document.querySelector(`[data-slot="${slotId}"]`);
+  el.classList.add('filled');
+  el.innerHTML=`<span style="font-size:15px">${action.icon}</span><div><div style="font-size:12px;font-weight:600">${action.name}</div><div style="font-size:10px;color:var(--green-d)">${action.tool}</div></div>`;
+  document.getElementById('action-picker').classList.remove('show');updateSavings();
+}
+function updateSavings(){
+  const total=Object.values(slotData).reduce((s,a)=>s+a.save,0);
+  const sv=document.getElementById('wf-savings');
+  if(Object.keys(slotData).length>0){
+    sv.style.display='flex';
+    document.getElementById('wf-savings-n').textContent=total+' phút';
+    document.getElementById('wf-savings-week').textContent=Math.round(total*5/60*10)/10;
+    document.getElementById('wf-savings-month').textContent=Math.round(total*22/60);
+  }else{sv.style.display='none';}
+}
+
+/* ── LIBRARY ── */
+const LIB=[
+  {emoji:'📏',name:'Rút ngắn output',desc:'Khi output quá dài',badge:'Độ dài',bc:'badge-caution',prompt:'"Rút gọn xuống còn [100] từ, giữ nguyên các ý chính."\n\n"Bỏ phần [X], tập trung vào 3 điểm quan trọng nhất."\n\n"Cắt 30% — ưu tiên giữ số liệu và kết luận."'},
+  {emoji:'🎙️',name:'Điều chỉnh giọng',desc:'Khi tone chưa phù hợp',badge:'Giọng văn',bc:'badge-good',prompt:'"Viết lại theo giọng thân thiện hơn, bớt formal."\n\n"Chuyên nghiệp hóa — sẽ gửi cho đối tác nước ngoài."\n\n"Thêm sự đồng cảm vào mở đầu."'},
+  {emoji:'🏗️',name:'Tổ chức lại cấu trúc',desc:'Khi layout chưa rõ',badge:'Cấu trúc',bc:'badge-caution',prompt:'"Tổ chức thành 3 phần rõ: Vấn đề / Giải pháp / Hành động."\n\n"Chuyển đoạn văn sang bullet points."\n\n"Đưa kết luận lên đầu — người đọc bận."'},
+  {emoji:'➕',name:'Bổ sung nội dung',desc:'Khi còn thiếu',badge:'Nội dung',bc:'badge-good',prompt:'"Thêm 2 ví dụ cụ thể cho luận điểm thứ hai."\n\n"Thiếu phần rủi ro — thêm 2-3 điểm."\n\n"Thêm số liệu cụ thể — hiện quá chung chung."'},
+  {emoji:'🎯',name:'Thêm CTA & hook',desc:'Khi mở đầu/kết nhạt',badge:'Impact',bc:'badge-good',prompt:'"Thêm câu mở đầu hook hơn — hiện quá nhạt."\n\n"Kết thúc bằng CTA rõ ràng."\n\n"Viết lại câu đầu — phải gây tò mò."'},
+  {emoji:'🔍',name:'Kiểm tra độ chính xác',desc:'Khi cần verify',badge:'Accuracy',bc:'badge-bad',prompt:'"Số liệu này sai — đúng là [X]. Viết lại đoạn này."\n\n"Ghi [CẦN VERIFY] bên cạnh mọi số liệu cụ thể."\n\n"Đoạn này giả định [X] nhưng thực tế [Y] — điều chỉnh."'},
+];
+const TRIGGERS=[
+  {emoji:'🌅',name:'Trigger đầu ngày',desc:'Chạy khi bắt đầu làm việc',badge:'Sáng',bc:'badge-good',prompt:`Tóm tắt 5 email quan trọng nhất trong 24 giờ qua.\nPhân loại: Cần xử lý ngay / Hôm nay / Chỉ đọc.\nFormat: Bullet, mỗi email 1-2 câu.`},
+  {emoji:'🎙️',name:'Trigger sau họp',desc:'Chạy ngay sau cuộc họp',badge:'Họp',bc:'badge-caution',prompt:`Đây là notes từ cuộc họp: [paste notes thô]\n\nHãy tạo:\n1. Tóm tắt quyết định chính (3-5 điểm)\n2. Action items: Ai làm gì, deadline khi nào\n3. Follow up ở cuộc họp tiếp theo`},
+  {emoji:'📝',name:'Báo cáo tuần',desc:'Chạy cuối tuần — thứ Sáu',badge:'Tuần',bc:'badge-good',prompt:`Những việc tôi đã làm tuần này: [liệt kê]\n\nViết báo cáo tuần:\n- Highlights (3-5 thành tựu)\n- Lowlights (thách thức)\n- Next week: Kế hoạch\n- Cần support: Gì cần hỗ trợ từ manager\n\nTone: Chuyên nghiệp, dưới 300 từ.`},
+];
+function renderLib(){
+  const g=document.getElementById('lib-grid');
+  LIB.forEach((item,i)=>{
+    const d=document.createElement('div');d.className='lib-card';
+    d.innerHTML=`<div class="lib-hdr" onclick="toggleLib(${i})"><div class="lib-left"><span class="lib-emoji">${item.emoji}</span><div><div class="lib-name">${item.name}</div><div class="lib-desc">${item.desc}</div></div></div><span class="lib-badge ${item.bc}">${item.badge}</span></div><div class="lib-body" id="lb${i}"><pre class="lib-prompt">${item.prompt}</pre><button class="copy-btn" onclick="cpLib(${i},event)">📋 Copy lệnh</button><span id="lok${i}" style="font-size:11px;color:var(--green);margin-left:9px;display:none">✓ Đã copy!</span></div>`;
+    g.appendChild(d);
+  });
+  const tg=document.getElementById('trigger-grid');
+  TRIGGERS.forEach((item,i)=>{
+    const d=document.createElement('div');d.className='lib-card';
+    d.innerHTML=`<div class="lib-hdr" onclick="toggleTrig(${i})"><div class="lib-left"><span class="lib-emoji">${item.emoji}</span><div><div class="lib-name">${item.name}</div><div class="lib-desc">${item.desc}</div></div></div><span class="lib-badge ${item.bc}">${item.badge}</span></div><div class="lib-body" id="tb${i}"><pre class="lib-prompt">${item.prompt}</pre><button class="copy-btn" onclick="cpTrig(${i},event)">📋 Copy prompt</button><span id="tok${i}" style="font-size:11px;color:var(--green);margin-left:9px;display:none">✓ Đã copy!</span></div>`;
+    tg.appendChild(d);
+  });
+}
+function toggleLib(i){document.getElementById('lb'+i).classList.toggle('open');}
+function toggleTrig(i){document.getElementById('tb'+i).classList.toggle('open');}
+function cpLib(i,e){e.stopPropagation();navigator.clipboard.writeText(LIB[i].prompt).then(()=>{const ok=document.getElementById('lok'+i);ok.style.display='inline';setTimeout(()=>ok.style.display='none',2000);});}
+function cpTrig(i,e){e.stopPropagation();navigator.clipboard.writeText(TRIGGERS[i].prompt).then(()=>{const ok=document.getElementById('tok'+i);ok.style.display='inline';setTimeout(()=>ok.style.display='none',2000);});}
+
+/* ── QUIZ 1 ── */
+const QS1=[
+  {q:"Bạn cần tóm tắt báo cáo 50 trang cho sếp đọc trong 5 phút. Prompt nào tốt nhất?",opts:["Tóm tắt báo cáo này","Tóm tắt báo cáo tài chính này. Ngắn gọn thôi","Bạn là chuyên gia phân tích tài chính. Từ báo cáo sau, viết Executive Summary ~300 từ cho CEO. Cấu trúc: 3 điểm tài chính | 2 rủi ro | 1 recommendation. Dùng số liệu cụ thể.","Đọc báo cáo và cho tôi biết điều quan trọng nhất"],correct:2,exp:"Đáp án C cung cấp đủ: vai trò, đối tượng (CEO), giới hạn (300 từ), cấu trúc rõ, yêu cầu cụ thể. Hai đáp án đầu quá mơ hồ. D không định format."},
+  {q:"Kỹ thuật nào phù hợp nhất khi muốn AI phân tích quyết định mua thiết bị 5 tỷ?",opts:["Few-Shot (cho vài ví dụ quyết định tương tự)","Chain-of-Thought (phân tích từng bước: tiêu chí → đánh giá → rủi ro → kết luận)","Role Prompting đơn giản","Output Control (yêu cầu trả lời dạng bảng)"],correct:1,exp:"CoT phù hợp nhất cho quyết định phức tạp. Bạn muốn AI đi qua từng bước: xác định tiêu chí → đánh giá → phân tích rủi ro → kết luận. Few-Shot tốt khi có pattern cố định. Output Control kiểm soát hình thức không cải thiện chất lượng suy luận."},
+  {q:"Bạn muốn AI viết caption Instagram đúng phong cách thương hiệu. Kỹ thuật nào hiệu quả nhất?",opts:["Mô tả bằng lời: 'Viết theo phong cách vui vẻ, trẻ trung'","Few-Shot: Cung cấp 3-4 caption mẫu rồi yêu cầu viết mới","Role Prompting: Đóng vai Social Media Manager","XML Tags: Phân tách brief và output format"],correct:1,exp:"Few-Shot tốt nhất vì 'phong cách thương hiệu' rất khó mô tả bằng lời. AI học được tone, cấu trúc, hashtag từ caption mẫu. Mô tả bằng lời thường quá chung chung."},
+  {q:"Khi dùng XML tags trong prompt, điều nào ĐÚNG?",opts:["Tên tag phải đúng cú pháp HTML chuẩn","Tag giúp Claude phân biệt rõ các phần — đặc biệt hữu ích khi prompt dài","Dùng XML làm prompt chạy nhanh hơn","XML chỉ hoạt động với API, không dùng được Claude.ai"],correct:1,exp:"XML tags phân cấu trúc prompt dài rõ ràng — Claude biết phần nào là ngữ cảnh, dữ liệu, nhiệm vụ. Tên tag tự đặt (không cần đúng HTML). Claude.ai cũng hiểu XML tags tốt."},
+  {q:"Nguyên tắc nào SAI khi viết prompt?",opts:["Cung cấp ngữ cảnh về người đọc output","Dùng hướng dẫn tiêu cực: 'Đừng dài, đừng phức tạp'","Chỉ định rõ format đầu ra (bảng, JSON, bullets)","Giải thích lý do đằng sau yêu cầu"],correct:1,exp:"Hướng dẫn tiêu cực kém hiệu quả hơn hướng dẫn tích cực. Thay vì 'đừng dài' → nói 'tối đa 150 từ'. Thay vì 'đừng phức tạp' → 'dùng ngôn ngữ đơn giản'. Các đáp án còn lại đều là best practices."},
+  {q:"Bạn paste cả báo cáo 30 trang vào Claude và hỏi nhiều câu trong cùng một hội thoại. Điều này:",opts:["Không nên — nên chia thành nhiều hội thoại riêng","Ổn — Claude nhớ toàn bộ nội dung, hỏi nhiều câu không cần paste lại","Chỉ hoạt động với file PDF, không phải text","Sẽ bị lỗi sau 3-4 câu"],correct:1,exp:"Claude có context window lớn. Paste tài liệu dài và hỏi nhiều câu trong cùng hội thoại hoàn toàn ổn. Đây là điểm mạnh lớn của Claude cho phân tích tài liệu."},
+  {q:"'Ghi [CẦN VERIFY] cho thông tin cần kiểm tra' trong prompt có tác dụng gì?",opts:["Làm AI chạy chậm hơn","Giúp bạn biết điểm nào AI không chắc chắn — cần fact-check trước khi dùng","Bắt AI từ chối trả lời câu không chắc","Không có tác dụng gì"],correct:1,exp:"Đây là kỹ thuật 'Calibrated Uncertainty' — quan trọng với số liệu tài chính. Bạn muốn biết AI không chắc ở đâu để fact-check. Claude trả lời trung thực về giới hạn khi được yêu cầu."},
+  {q:"Nhận output chưa đúng ý. Cách tốt nhất tiếp theo?",opts:["Xóa hội thoại và bắt đầu lại","Nói 'Làm lại đi' mà không giải thích","Hỏi: 'Điều gì trong prompt khiến bạn trả lời vậy? Tôi cần thêm gì?' rồi tinh chỉnh cụ thể","Thêm 'hãy trả lời hay hơn lần trước'"],correct:2,exp:"Hỏi AI tại sao nó trả lời vậy giúp bạn hiểu prompt thiếu gì. Sau đó tinh chỉnh đúng điểm. 'Làm lại' không có hướng cho kết quả tương tự. 'Hay hơn' quá mơ hồ."}
+];
+let q1=0,s1=0,a1=false;
+function loadQ1(){
+  const q=QS1[q1];document.getElementById('q1text').textContent=(q1+1)+'. '+q.q;
+  document.getElementById('q1prog').textContent=`Câu ${q1+1} / ${QS1.length}`;
+  document.getElementById('q1bar').style.width=(q1/QS1.length*100)+'%';
+  document.getElementById('q1exp').style.display='none';document.getElementById('q1next').style.display='none';
+  document.getElementById('q1score').textContent=s1>0?`Đúng: ${s1}/${q1}`:'';
+  const c=document.getElementById('q1opts');c.innerHTML='';a1=false;
+  q.opts.forEach((opt,i)=>{const b=document.createElement('button');b.className='q-opt';b.innerHTML=`<div class="q-opt-k">${String.fromCharCode(65+i)}</div><span>${opt}</span>`;b.onclick=()=>selectA1(i);c.appendChild(b);});
+}
+function selectA1(i){
+  if(a1)return;a1=true;const q=QS1[q1];
+  document.querySelectorAll('#q1opts .q-opt').forEach((b,idx)=>{if(idx===q.correct)b.classList.add('correct');else if(idx===i&&i!==q.correct)b.classList.add('wrong');b.disabled=true;});
+  if(i===q.correct)s1++;
+  document.getElementById('q1score').textContent=`Đúng: ${s1}/${q1+1}`;
+  const exp=document.getElementById('q1exp');exp.textContent='💡 '+q.exp;exp.style.display='block';
+  const nb=document.getElementById('q1next');nb.style.display='inline-block';nb.textContent=q1<QS1.length-1?'Câu tiếp →':'Xem kết quả';
+}
+function nextQ1(){
+  q1++;if(q1>=QS1.length)showResult1();else loadQ1();
+}
+function showResult1(){
+  const pct=Math.round(s1/QS1.length*100);const msg=pct>=87?'🏆 Xuất sắc! Bạn đã thành thạo Prompt Engineering!':pct>=62?'👍 Khá tốt! Ôn lại phần Kỹ thuật.':'📚 Cần luyện thêm — đọc lại từ phần Nền tảng.';
+  document.getElementById('quiz1-wrap').innerHTML=`<div style="text-align:center;padding:32px 16px"><div style="font-size:40px;margin-bottom:12px">${pct>=87?'🏆':pct>=62?'👍':'📚'}</div><div style="font-size:24px;font-weight:800;margin-bottom:5px">${s1}/${QS1.length} câu đúng</div><div style="font-size:20px;font-weight:800;color:${pct>=87?'var(--green)':pct>=62?'var(--amber)':'var(--red)'};margin-bottom:12px">${pct}%</div><div style="color:var(--text2);font-size:13px;margin-bottom:20px;line-height:1.7">${msg}</div><button class="btn btn-primary" onclick="restartQ1()">🔄 Làm lại</button></div>`;
+}
+function restartQ1(){
+  q1=0;s1=0;a1=false;
+  document.getElementById('quiz1-wrap').innerHTML=`<div class="qprog-bar"><div class="qprog-fill" id="q1bar" style="width:0%"></div></div><div style="font-size:11px;color:var(--text3);margin-bottom:12px" id="q1prog">Câu 1 / 8</div><div class="q-text" id="q1text"></div><div class="q-opts" id="q1opts"></div><div class="q-exp" id="q1exp"></div><div class="q-nav"><div style="font-size:12px;color:var(--text3)" id="q1score"></div><button class="btn btn-primary" id="q1next" onclick="nextQ1()" style="display:none">Câu tiếp →</button></div>`;
+  loadQ1();
+}
+
+/* ── QUIZ 2 ── */
+const QS2=[
+  {q:"Bạn cần nhờ AI phân tích hợp đồng hợp tác 5 năm trị giá lớn. Chế độ nào phù hợp?",opts:["Chế độ 1: AI làm, mình làm theo","Chế độ 3: AI phân tích pros/cons, mình quyết định dựa trên context + consult luật sư","Không nên dùng AI cho việc này","Chế độ 2: AI gợi ý xong là ký luôn"],correct:1,exp:"Quyết định tài chính/pháp lý quan trọng → Chế độ 3. AI cung cấp framework phân tích, nhưng bạn có context đầy đủ và cần consult chuyên gia pháp lý trước khi ký."},
+  {q:"Nhận output email xin lỗi từ AI. Bước đầu tiên theo framework 3 câu hỏi?",opts:["Copy ngay và gửi","Hỏi AI: 'Cái này có đúng không?'","Đặt 3 câu hỏi: Thông tin đúng? Đủ ý? Giọng/độ dài phù hợp?","Xóa tab và viết lại từ đầu"],correct:2,exp:"Framework 3 câu hỏi: Đúng? Đủ? Phù hợp? Đánh giá theo 3 tiêu chí trước khi tinh chỉnh. Không copy ngay và không xóa tab — output đầu tiên là điểm khởi đầu."},
+  {q:"Email AI thiếu phần bồi thường và giọng văn quá lạnh. Cách tinh chỉnh đúng?",opts:["Xóa tab, viết prompt mới từ đầu","Dùng lệnh cụ thể: 'Thêm đề xuất bồi thường cụ thể vào đoạn 2. Viết lại giọng văn thân thiện hơn.'","Nói với AI: 'Viết lại hay hơn đi'","Tự chỉnh tay toàn bộ email"],correct:1,exp:"Lệnh tinh chỉnh cụ thể (chỉ rõ phần nào, cần thay đổi gì) hiệu quả hơn 'viết lại hay hơn'. Không cần xóa tab — AI nhớ context trong cùng hội thoại."},
+  {q:"Bước đầu tiên để xây AI Workflow là gì?",opts:["Cài tất cả công cụ AI có thể","Kiểm kê 10 việc thường xuyên nhất → đánh dấu việc tốn thời gian nhưng không cần sáng tạo","Đăng ký ChatGPT Plus ngay","Học hết kỹ thuật prompt trước"],correct:1,exp:"Bước 1 luôn là kiểm kê 'điểm đau' — tìm việc lặp lại, tốn thời gian nhưng không đòi hỏi sáng tạo cao. Đây là nơi AI mang lại ROI cao nhất."},
+  {q:"Lỗi workflow tốn kém nhất là gì?",opts:["Dùng AI quá nhiều mỗi ngày","Không lưu prompt — mỗi lần tốt cũng làm lại từ đầu lần sau","Dùng quá nhiều tool khác nhau","Prompt quá dài"],correct:1,exp:"Không lưu prompt là lỗi tốn kém nhất. Lần đầu mất 10 phút. Lần 2, 3 cũng mất 10 phút. Nếu lưu: lần 2 mất 10 giây. Thư viện prompt cá nhân là tài sản quan trọng nhất."},
+  {q:"AI nói lãi suất vay mua nhà hiện tại là 9.5%/năm. Bạn nên làm gì?",opts:["Dùng số liệu này luôn — AI thường đúng","Kiểm tra lại từ website ngân hàng — đây là số liệu thời gian thực có thể đã thay đổi","Hỏi AI thêm lần nữa để xác nhận","Không dùng AI cho câu hỏi tài chính"],correct:1,exp:"Số liệu tài chính thời gian thực (lãi suất, tỷ giá) thay đổi thường xuyên và nằm ngoài khả năng AI free. Luôn verify từ nguồn chính thức."}
+];
+let q2=0,s2=0,a2=false;
+function loadQ2(){
+  const q=QS2[q2];document.getElementById('q2text').textContent=(q2+1)+'. '+q.q;
+  document.getElementById('q2prog').textContent=`Câu ${q2+1} / ${QS2.length}`;
+  document.getElementById('q2bar').style.width=(q2/QS2.length*100)+'%';
+  document.getElementById('q2exp').style.display='none';document.getElementById('q2next').style.display='none';
+  document.getElementById('q2score').textContent=s2>0?`Đúng: ${s2}/${q2}`:'';
+  const c=document.getElementById('q2opts');c.innerHTML='';a2=false;
+  q.opts.forEach((opt,i)=>{const b=document.createElement('button');b.className='q-opt';b.innerHTML=`<div class="q-opt-k">${String.fromCharCode(65+i)}</div><span>${opt}</span>`;b.onclick=()=>selectA2(i);c.appendChild(b);});
+}
+function selectA2(i){
+  if(a2)return;a2=true;const q=QS2[q2];
+  document.querySelectorAll('#q2opts .q-opt').forEach((b,idx)=>{if(idx===q.correct)b.classList.add('correct');else if(idx===i&&i!==q.correct)b.classList.add('wrong');b.disabled=true;});
+  if(i===q.correct)s2++;
+  document.getElementById('q2score').textContent=`Đúng: ${s2}/${q2+1}`;
+  const exp=document.getElementById('q2exp');exp.textContent='💡 '+q.exp;exp.style.display='block';
+  const nb=document.getElementById('q2next');nb.style.display='inline-block';nb.textContent=q2<QS2.length-1?'Câu tiếp →':'Xem kết quả';
+}
+function nextQ2(){q2++;if(q2>=QS2.length)showResult2();else loadQ2();}
+function showResult2(){
+  const pct=Math.round(s2/QS2.length*100);const msg=pct>=83?'🏆 Xuất sắc! Bạn nắm vững AI Mindset & Workflow!':pct>=50?'👍 Khá tốt! Ôn lại phần còn yếu.':'📚 Cần luyện thêm — đọc lại từng phần nhé.';
+  document.getElementById('quiz2-wrap').innerHTML=`<div style="text-align:center;padding:32px 16px"><div style="font-size:40px;margin-bottom:12px">${pct>=83?'🏆':pct>=50?'👍':'📚'}</div><div style="font-size:24px;font-weight:800;margin-bottom:5px">${s2}/${QS2.length} câu đúng</div><div style="font-size:20px;font-weight:800;color:${pct>=83?'var(--green)':pct>=50?'var(--amber)':'var(--red)'};margin-bottom:12px">${pct}%</div><div style="color:var(--text2);font-size:13px;margin-bottom:20px;line-height:1.7">${msg}</div><button class="btn btn-green" onclick="restartQ2()">🔄 Làm lại</button></div>`;
+}
+function restartQ2(){
+  q2=0;s2=0;a2=false;
+  document.getElementById('quiz2-wrap').innerHTML=`<div class="qprog-bar"><div class="qprog-fill" id="q2bar" style="width:0%"></div></div><div style="font-size:11px;color:var(--text3);margin-bottom:12px" id="q2prog">Câu 1 / 6</div><div class="q-text" id="q2text"></div><div class="q-opts" id="q2opts"></div><div class="q-exp" id="q2exp"></div><div class="q-nav"><div style="font-size:12px;color:var(--text3)" id="q2score"></div><button class="btn btn-green" id="q2next" onclick="nextQ2()" style="display:none">Câu tiếp →</button></div>`;
+  loadQ2();
+}
+
+/* ── INIT ── */
+buildPrompt();
+initDecision();
+loadSample('email',null);
+renderLib();
+loadQ1();
+loadQ2();
+</script>
+</body>
+</html>
